@@ -1,9 +1,31 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './nav.scss'
 function Navbar() {
   return (
     <nav>
-      navbar
+      <div className="left">
+          <div className="logo link">
+            <img src="/logo.png" alt="" />
+            <span>MinaEstate</span>
+          </div>
+          <Link to='/'  className='link'>
+            Home
+          </Link>
+          <Link to='/' className='link'>
+            About
+          </Link>
+          <Link to='/' className='link'>
+            Contact
+          </Link>
+          <Link to='/' className='link'>
+            Agents
+          </Link>
+      </div>
+      <div className="right">
+          <button>Sign in</button>
+          <button>Sign up</button>
+      </div>
     </nav>
   )
 }

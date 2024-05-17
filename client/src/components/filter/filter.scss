@@ -1,0 +1,52 @@
+.filter{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    .type{
+        display: flex;
+        button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 30px;
+            border: 1px solid #999;
+            border-bottom: none;
+            background: transparent;
+            cursor: pointer;
+            &.active{
+                background-color: black;
+                color: white;
+            }
+            &:first-child{
+                border-right: none;
+                border-top-left-radius: 5px;
+            }
+            &:last-child{
+                border-top-right-radius: 5px;
+            }
+        }
+    }
+    form{
+        display: flex;
+        border: 1px solid #999;
+        input{
+            padding: 20px;
+            border: none;
+            width: 30%;
+        }
+        button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            flex:1;
+            border: none;
+            background-color: var(--yellow);
+            cursor: pointer;
+            img{
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+}
