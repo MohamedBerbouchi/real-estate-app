@@ -64,16 +64,17 @@ nav{
             padding: 10px 20px;
             background-color: transparent;
             cursor: pointer;
-            &:last-child{
-            background-color: var(--yellow);
-            margin-right: 10px;
-                
-            }
+           
             &:first-child{
+
                 @include sm{
                     display: none;
                 }
             }
+            &:last-of-type{
+                background-color: var(--yellow);
+                margin-right: 10px;
+                }
         }
         .menu{
             z-index: 99999;
