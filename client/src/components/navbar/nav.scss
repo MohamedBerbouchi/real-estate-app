@@ -1,3 +1,5 @@
+@import '../../responsive.scss';
+
 nav{
     width: 100%;
     height: 100px;
@@ -10,6 +12,7 @@ nav{
         align-items: center;
         gap: 50px;
         .logo{
+            
             display: flex;
             gap: 10px;
             cursor: pointer;
@@ -18,6 +21,12 @@ nav{
             text-transform: capitalize;
             span{
                 align-self: flex-end;
+                @include md{
+                    display: none;
+                   }
+                   @include sm{
+                    display: flex;
+                }
             }
             img{
                 width: 28px;
@@ -25,10 +34,16 @@ nav{
             }
         }
         .link{
+           &:not(:first-child){
+            @include sm{
+                display: none;
+            }
+           }
             transition: transform 0.3s ease;
             &:hover{
                 transform: scale(1.01);
             }
+         
         }
         
     }
@@ -40,6 +55,9 @@ nav{
         justify-content: flex-end;
         align-items: center;
         gap: 20px;
+        @include md{
+            background-color: transparent;
+        }
         button{
             font-size: 16px;
             border: none;
@@ -51,6 +69,45 @@ nav{
             margin-right: 10px;
                 
             }
+            &:first-child{
+                @include sm{
+                    display: none;
+                }
+            }
         }
+        .menu{
+            z-index: 99999;
+            display: none;
+            cursor: pointer;
+            img{
+                width: 44px;
+                height: 44px;
+            }
+            @include sm{
+                display: block;
+            }
+        }
+       
     }
+    
+.mobile_menu{
+    position: absolute;
+    top: 0;
+    right: -50%;
+    height: 100vh;
+    width: 50%;
+    background-color: black;
+    color:  white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    font-size: 28px;  
+    transition: all 0.5s ease;
+    &.active{
+        right: 0;
+
+    }  
+}
 }

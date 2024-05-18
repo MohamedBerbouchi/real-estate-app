@@ -1,3 +1,5 @@
+@import '../../responsive.scss';
+
 .home {
   height: 100%;
   width: 100%;
@@ -14,14 +16,23 @@
       flex-direction: column;
       justify-content: center;
       gap: 40px;
+      @include sm{
+        justify-content: flex-start;
+      }
       h1 {
         font-size: 60px;
         text-transform: capitalize;
+        @include md{
+          font-size: 48px;
+         }
       }
       .boxes {
         width: 100%;
         display: flex;
         justify-content: space-between;
+        @include sm{
+         display: none;
+        }
         .box {
           display: flex;
           flex-direction: column;
@@ -48,6 +59,9 @@
     justify-content: flex-end;
     img{
         width: 115%;
-    }
+    }  @include md{
+      display: none;
+     }
+
   } 
 }

@@ -1,11 +1,14 @@
+@import '../../responsive.scss';
 .listpage {
   height: 100%;
   display: flex;
+  
   .content {
   padding: 10px;
     overflow-y: auto;
     flex: 3;
     height: 100%;
+   
     h1{
         font-size: 24px;
         font-weight: 300;
@@ -63,5 +66,8 @@
     flex: 2;
     height: 100%;
     background-color: var(--light-yellow);
+    @include md{
+     display: none;
+    }
   }
 }

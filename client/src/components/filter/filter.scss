@@ -1,3 +1,5 @@
+@import '../../responsive.scss';
+
 .filter{
     display: flex;
     flex-direction: column;
@@ -24,15 +26,29 @@
             &:last-child{
                 border-top-right-radius: 5px;
             }
+        @include sm{
+            border-bottom: none;
+        }
         }
     }
     form{
         display: flex;
         border: 1px solid #999;
+        @include sm{
+            flex-direction: column;
+            width: 100%;
+            border: none;
+            gap: 5px;
+          }
         input{
             padding: 20px;
             border: none;
             width: 30%;
+            @include sm{
+                gap: 5px;
+                border: 1px solid #999;
+                width: 100%;
+              }
         }
         button{
             display: flex;
