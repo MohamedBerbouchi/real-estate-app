@@ -5,10 +5,10 @@ function Navbar() {
   return (
     <nav>
       <div className="left">
-          <div className="logo link">
+          <Link to='/' className="logo link">
             <img src="/logo.png" alt="" />
             <span>MinaEstate</span>
-          </div>
+          </Link>
           <Link to='/'  className='link'>
             Home
           </Link>
