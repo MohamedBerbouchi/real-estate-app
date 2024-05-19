@@ -1,22 +1,44 @@
-@import '../../responsive.scss';
+@import "../../responsive.scss";
 .listpage {
   height: 100%;
   display: flex;
-  
+
   .content {
-  padding: 10px;
     overflow-y: auto;
+    padding-bottom: 50px;
     flex: 3;
     height: 100%;
-   
-    h1{
-        font-size: 24px;
-        font-weight: 300;
-    }   
+  
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 3px;
+
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 300;
+    }
     .wrapper {
       display: flex;
       flex-direction: column;
       gap: 20px;
+    padding: 10px;
       padding-right: 40px;
       .filter_container {
         display: flex;
@@ -26,37 +48,42 @@
           display: flex;
           flex-direction: column;
           gap: 2px;
-          label{
+          label {
             font-size: 10px;
           }
-          input, select{
+          input,
+          select {
             padding: 10px;
             border: 1px solid var(--light-gray);
             border-radius: 5px;
-        }
+          }
         }
 
         .bottom {
           display: flex;
           justify-content: space-between;
-          .item {
-            input, select{
-                width: 100px;
-            }
-       
+          gap: 10px;
+          @include md {
+            flex-wrap: wrap;
           }
-          button{
+          .item {
+            input,
+            select {
+              width: 100px;
+            }
+          }
+          button {
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 10px 30px;
             background-color: var(--yellow);
             border: none;
-            img{
-                width: 23px;
-                height: 23px;
+            img {
+              width: 23px;
+              height: 23px;
             }
-        }
+          }
         }
       }
     }
@@ -66,8 +93,8 @@
     flex: 2;
     height: 100%;
     background-color: var(--light-yellow);
-    @include md{
-     display: none;
+    @include md {
+      display: none;
     }
   }
 }

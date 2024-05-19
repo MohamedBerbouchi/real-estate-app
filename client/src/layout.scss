@@ -13,15 +13,15 @@
         height: calc(100vh - 100px);
     }
     @include lg {
-        background-color: rgb(230, 118, 118);
+        // background-color: rgb(230, 118, 118);
         max-width: 1280px;
     }
     @include md {
-        background-color: rgb(192, 254, 163);
+        // background-color: rgb(192, 254, 163);
         max-width: 780px;
     }
     @include sm {
-        background-color: rgb(163, 254, 248);
+        // background-color: rgb(163, 254, 248);
         max-width: 650px;
     }
 }
