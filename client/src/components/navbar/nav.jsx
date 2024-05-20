@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { userData } from "../../lib/dummydata";
 import "./nav.scss";
+
 function Navbar() {
   const [open, setOpen] = useState(false);
-  console.log(open);
+  const user = true;
+
   return (
     <nav>
       <div className="left">
@@ -25,11 +28,23 @@ function Navbar() {
         </Link>
       </div>
       <div className="right">
-        <button>Sign in</button>
-        <button>Sign up</button>
-        <div className="menu" onClick={() => setOpen(!open)}>
-          <img src="/menu.png" alt="" />
+        {!user && (
+          <>
+            <button>Sign in</button>
+            <button>Sign up</button>
+            <div className="menu" onClick={() => setOpen(!open)}>
+              <img src="/menu.png" alt="" />
+            </div>
+          </>
+        )}
+        {user && <div className="profile">
+        <img src={userData.img} alt="" className="user_img" />
+        <h2 className="username">{userData.name}</h2>
+        <div className="button">
+          <Link to='/profile' className="profile_link">Profile</Link>
+          <span>3</span>
         </div>
+        </div>}
         <div className={open ? "mobile_menu active" : "mobile_menu"}>
           <Link to="/" className="link">
             Home
@@ -44,13 +59,12 @@ function Navbar() {
             Agents
           </Link>
           <Link to="/" className="link">
-            Sign in 
+            Sign in
           </Link>
           <Link to="/" className="link">
-           Sign up
+            Sign up
           </Link>
         </div>
-     
       </div>
     </nav>
   );

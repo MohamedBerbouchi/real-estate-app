@@ -1,6 +1,12 @@
 @import '../../responsive.scss';
 
 nav{
+    a{
+        transition: transform 0.3s ease;
+        &:hover{
+            transform: scale(1.01);
+        }
+    }
     width: 100%;
     height: 100px;
     display: flex;
@@ -57,6 +63,48 @@ nav{
         gap: 20px;
         @include md{
             background-color: transparent;
+        }
+        .profile{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .button{
+                position: relative;
+                .profile_link{
+                    padding: 10px 20px;
+                    background-color: var(--yellow);
+                    font-size: 18px;
+                    font-weight: 600;
+                    margin-left: 30px;
+                    transition: all 0.3 ease;
+                    cursor: pointer;
+                     
+                }
+                span{
+                  width: 24px;
+                  height: 24px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border-radius: 50%;
+                  background-color: red;
+                  color: #fff;
+                  position: absolute;
+                  top: -16px;
+                  right: -12px;
+                  font-weight: bold;
+                }
+            }
+        }
+        .user_img{
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    object-fit: cover;
+        }
+        .username{
+                font-size: 18px;
+                font-weight: 600;
         }
         button{
             font-size: 16px;
