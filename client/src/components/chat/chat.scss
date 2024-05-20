@@ -1,0 +1,105 @@
+.chat {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  .head {
+    height: 80px;
+    background-color: rgba(247, 193, 75, 0.5215686275);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    position: relative;
+    .close {
+      position: absolute;
+      top: 30px;
+      right: 10px;
+      font-weight: normal;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    span {
+      font-weight: bold;
+    }
+  }
+  .body {
+    flex: 1;
+
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 0;
+      }
+      &:hover{
+        &::-webkit-scrollbar {
+            width: 5px;
+          }
+      }
+  
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+  
+      }
+  
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+  
+      }
+  
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    .message {
+      width: 50%;
+      &.own {
+        align-self: flex-end;
+
+        text-align: right;
+      }
+      .date {
+        border-radius: 3px;
+        padding: 3px;
+        background-color: var(--light-yellow);
+        font-size: 10px;
+      }
+    }
+  }
+  .bottom {
+    height: 70px;
+    display: flex;
+
+    border-top: 2px solid rgba(247, 193, 75, 0.5215686275);
+    textarea {
+      width: 80%;
+      height: 100%;
+      border: none;
+    }
+    button {
+      color: black;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: capitalize;
+      background-color: rgba(247, 193, 75, 0.5215686275);
+      width: 20%;
+    }
+  }
+}
