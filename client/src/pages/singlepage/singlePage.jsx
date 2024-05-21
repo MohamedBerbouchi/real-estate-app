@@ -1,7 +1,7 @@
 import React from "react";
 import Map from "../../components/map/map";
 import Slider from "../../components/slider/slider";
-import { singlePostData } from "../../lib/dummydata";
+import { singlePostData, userData } from "../../lib/dummydata";
 import "./singlePage.scss";
 function SinglePage() {
   return (
@@ -9,7 +9,28 @@ function SinglePage() {
       <div className="left">
         <div className="wrapper">
         <Slider images={singlePostData.images} />
+        <div className="post_content">
+          <div className="info">
+          <h1>{singlePostData.title}</h1>
+            <div className="address">
+              <img src="/pin.png" alt="" />
+              {singlePostData.address}
+            </div>
+            <div className="price">
+              $ {singlePostData.price}
+            </div>
+          </div>
+          <div className="user">
+            <img src={userData.img} alt="" />
+            <div className="name">{userData.name}</div>
+          </div>
         </div>
+        <div className="desc">
+        Future alike hill pull picture swim magic chain seed engineer nest outer raise bound easy poetry gain loud weigh me recognize farmer bare danger. actually put square leg vessels earth engine matter key cup indeed body film century shut place environment were stage vertical roof bottom lady function breeze darkness beside tin view local breathe carbon swam declared magnet escape has from pile apart route coffee storm someone hold space use ahead sheep jungle closely natural attached part top grain your grade trade corn salmon trouble new bend most teacher range anybody every seat fifteen eventually
+
+        </div>
+        </div>
+
       </div>
       <div className="right">
         <div className="wrapper">
