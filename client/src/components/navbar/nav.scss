@@ -1,164 +1,169 @@
-@import '../../responsive.scss';
+@import "../../responsive.scss";
 
-nav{
-    a{
-        transition: transform 0.3s ease;
-        &:hover{
-            transform: scale(1.01);
-        }
+nav {
+  a {
+    transition: transform 0.3s ease;
+    &:hover {
+      transform: scale(1.01);
     }
-    width: 100%;
-    height: 100px;
+  }
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  .left {
+    height: 100%;
+    flex: 3;
     display: flex;
     align-items: center;
-    .left{
-        height: 100%;
-        flex:3;
-        display: flex;
-        align-items: center;
-        gap: 50px;
-        .logo{
-            
-            display: flex;
-            gap: 10px;
-            cursor: pointer;
-            font-size: 20px;
-            font-weight: bold;
-            text-transform: capitalize;
-            span{
-                align-self: flex-end;
-                @include md{
-                    display: none;
-                   }
-                   @include sm{
-                    display: flex;
-                }
-            }
-            img{
-                width: 28px;
-                height: 28px;   
-            }
+    gap: 50px;
+    .logo {
+      display: flex;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: capitalize;
+      span {
+        align-self: flex-end;
+        @include md {
+          display: none;
         }
-        .link{
-           &:not(:first-child){
-            @include sm{
-                display: none;
-            }
-           }
-            transition: transform 0.3s ease;
-            &:hover{
-                transform: scale(1.01);
-            }
-         
+        @include sm {
+          display: flex;
         }
-        
+      }
+      img {
+        width: 28px;
+        height: 28px;
+      }
     }
-    .right{
-        height: 100%;
-        flex:2;
-        background-color: var(--light-yellow);
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 20px;
-        @include md{
-            background-color: transparent;
+    .link {
+      &:not(:first-child) {
+        @include sm {
+          display: none;
         }
-        .profile{
-        padding-right: 20px;
+      }
+      transition: transform 0.3s ease;
+      &:hover {
+        transform: scale(1.01);
+      }
+    }
+  }
+  .right {
+    height: 100%;
+    flex: 2;
+    background-color: var(--light-yellow);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    @include md {
+      background-color: transparent;
+    }
+    .profile {
+      padding-right: 20px;
 
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            .button{
-                position: relative;
-                .profile_link{
-                    padding: 10px 20px;
-                    background-color: var(--yellow);
-                    font-size: 18px;
-                    font-weight: 600;
-                    margin-left: 30px;
-                    transition: all 0.3 ease;
-                    cursor: pointer;
-                     
-                }
-                span{
-                  width: 24px;
-                  height: 24px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  border-radius: 50%;
-                  background-color: red;
-                  color: #fff;
-                  position: absolute;
-                  top: -16px;
-                  right: -12px;
-                  font-weight: bold;
-                }
-            }
-        }
-        .user_img{
-                    width: 45px;
-                    height: 45px;
-                    border-radius: 50%;
-                    object-fit: cover;
-        }
-        .username{
-                font-size: 18px;
-                font-weight: 600;
-        }
-        button{
-            font-size: 16px;
-            border: none;
-            padding: 10px 20px;
-            background-color: transparent;
-            cursor: pointer;
-           
-            &:first-child{
-
-                @include sm{
-                    display: none;
-                }
-            }
-            &:last-of-type{
-                background-color: var(--yellow);
-                margin-right: 10px;
-                }
-        }
-        .menu{
-            z-index: 99999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .button {
+        position: relative;
+        @include sm{
             display: none;
-            cursor: pointer;
-            img{
-                width: 44px;
-                height: 44px;
-            }
-            @include sm{
-                display: block;
-            }
         }
-       
+        .profile_link {
+          padding: 10px 20px;
+          background-color: var(--yellow);
+          font-size: 18px;
+          font-weight: 600;
+          margin-left: 30px;
+          transition: all 0.3 ease;
+          cursor: pointer;
+        }
+        span {
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background-color: red;
+          color: #fff;
+          position: absolute;
+          top: -16px;
+          right: -12px;
+          font-weight: bold;
+        }
+      }
     }
-    
-.mobile_menu{
+    .user_img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .username {
+      font-size: 18px;
+      font-weight: 600;
+      @include sm {
+        display: none;
+      }
+    }
+    button {
+      font-size: 16px;
+      border: none;
+      padding: 10px 20px;
+      background-color: transparent;
+      cursor: pointer;
+
+      &:first-child {
+        @include sm {
+          display: none;
+        }
+      }
+      &:last-of-type {
+        background-color: var(--yellow);
+        margin-right: 10px;
+      }
+    }
+    .menu {
+      z-index: 99999;
+      display: none;
+      cursor: pointer;
+      img {
+        width: 44px;
+        height: 44px;
+      }
+      @include sm {
+        display: block;
+      }
+    }
+  }
+
+  .mobile_menu {
     position: absolute;
     top: 0;
     right: -50%;
     height: 100vh;
     width: 50%;
     background-color: black;
-    color:  white;
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 50px;
-    font-size: 28px;  
+    font-size: 28px;
     transition: all 0.5s ease;
-    &.active{
-        right: 0;
-
-    }  
-}
+    &.active {
+      right: 0;
+    }
+    @include sm{
+        gap: 40px;
+        a{
+            // font-size: 18px;
+        }
+    }
+  }
 }

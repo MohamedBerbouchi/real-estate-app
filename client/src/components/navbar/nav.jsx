@@ -32,9 +32,7 @@ function Navbar() {
           <>
             <button>Sign in</button>
             <button>Sign up</button>
-            <div className="menu" onClick={() => setOpen(!open)}>
-              <img src="/menu.png" alt="" />
-            </div>
+           
           </>
         )}
         {user && <div className="profile">
@@ -65,6 +63,9 @@ function Navbar() {
             Sign up
           </Link>
         </div>
+        <div className="menu" onClick={() => setOpen(!open)}>
+              <img src="/menu.png" alt="" />
+            </div>
       </div>
     </nav>
   );

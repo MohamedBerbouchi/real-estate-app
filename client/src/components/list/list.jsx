@@ -5,8 +5,8 @@ import './list.scss'
 function List() {
   return (
     <div className='list'>
-      {listData.map(item=> (
-        <Card item={item} key={item.key} />
+      {listData.map((item, i)=> (
+        <Card  item={item} key={i} />
       ))}
     </div>
   )

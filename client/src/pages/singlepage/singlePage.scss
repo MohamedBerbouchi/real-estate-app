@@ -1,11 +1,20 @@
+@import '../../responsive.scss';
 .singlepage {
   display: flex;
   height: 100%;
-  
+
+  @include md{
+    flex-direction: column;
+   overflow-y: auto;
+  }
   .left {
     flex: 3;
     height: 100%;
     overflow-y: auto;
+    @include md{
+      flex: none;
+      height: max-content;
+    }
     &::-webkit-scrollbar {
         width: 5px;
       }
@@ -30,6 +39,9 @@
     .wrapper {
       padding-right: 40px;
       padding-bottom: 50px;
+       @include sm{
+      padding-right: 20px;
+    }
       .post_content {
         margin-top: 50px;
         display: flex;
@@ -91,6 +103,11 @@
     height: 100%;
     overflow-y: auto;
     background-color: var(--light-yellow);
+    @include md{
+      flex: none;
+      height: max-content;
+      overflow-y: inherit;
+    }
     &::-webkit-scrollbar {
         width: 5px;
       }
