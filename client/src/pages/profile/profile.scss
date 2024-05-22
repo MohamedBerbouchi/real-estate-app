@@ -1,7 +1,12 @@
-.profile {
+@import '../../responsive.scss';
+.profilePage {
   display: flex;
 height: 100%;
-
+@include md{
+  padding-top: 40px;
+  flex-direction: column;
+  overflow-y: scroll;
+ }
 .left, .messages{
     &::-webkit-scrollbar {
         width: 5px;
@@ -29,6 +34,10 @@ height: 100%;
     flex: 3;
     height: 100%;
     overflow-y: auto;
+    @include md{
+      height: max-content;
+      flex: none;
+     }
     &::-webkit-scrollbar {
         width: 5px;
       }
@@ -103,6 +112,10 @@ height: 100%;
     flex: 2;
     background-color:  var(--light-yellow);
     height: 100%;
+    @include md{
+      height: max-content;
+      flex: none
+    }
     .wrapper{
         padding: 20px;
         padding-bottom: 0;
@@ -117,6 +130,9 @@ height: 100%;
         flex-direction: column;
         gap: 20px;
         overflow-y: auto;
+        @include md{
+         flex: none;
+        }
         .message{
             img{
                 width: 44px;
@@ -141,6 +157,9 @@ height: 100%;
         flex: 1;
         display: flex;
         align-items: flex-end;
+        @include md{
+          flex: none;
+         }
 
     }
   }

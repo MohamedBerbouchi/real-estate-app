@@ -9,7 +9,7 @@ function Profile() {
   const [openChat, setOpenChat] = useState(false);
 
   return (
-    <div className="profile">
+    <div className="profilePage">
       <div className="left">
         <div className="wrapper">
           <div className="title">
