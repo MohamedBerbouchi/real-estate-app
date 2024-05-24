@@ -30,13 +30,15 @@ async function login(req, res) {
     });
     if (!user) {
       res.status(401).json({ message: "invalid credentials" });
+      return
     }
     const { password: userPassword, ...userInfo } = user;
     //check password
 
     const validPassword = await bcrypt.compare(password, user.password);
    if(!validPassword){
-    res.status(401).json('invalid credentials')
+    res.status(401).json({message:'invalid credentials'})
+    return
    }
     // retunr user info with cookie
     const age = 1000 * 60 * 60 * 24 * 7
