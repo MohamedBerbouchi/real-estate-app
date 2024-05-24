@@ -1,0 +1,23 @@
+console-ninja node --env-file .env --watch app.js
+bycript
+prisma
+MongoDB
+
+npx prisma db push
+
+
+bcrypt.hah
+
+res.setHeader(
+    "Set-Cookie",
+    "name=name"})
+jwt   7 days
+cookie-parser 7 days
+openssl rand -base64 32
+
+ipm i cors
+
+axios client
+
+kan3rf n5dm b wordpress wa5a ma3ndich chi experience kibara 
+fayt mgad 2 projects
