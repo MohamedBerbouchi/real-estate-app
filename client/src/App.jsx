@@ -5,6 +5,7 @@ import Homepage from './pages/home/homepage';
 import ListPage from './pages/list/listpage';
 import Login from './pages/login/login';
 import Profile from './pages/profile/profile';
+import Register from './pages/register/register';
 import SinglePage from './pages/singlepage/singlePage';
 
 function App() {
@@ -30,6 +31,10 @@ function App() {
         {
           path: "login",
           element: <Login />,
+        },
+        {
+          path: "register",
+          element: <Register />,
         },
         {
           path: ":id",

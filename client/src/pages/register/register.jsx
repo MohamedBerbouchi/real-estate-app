@@ -1,19 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './login.scss'
-function Login() {
+import './register.scss'
+function Register() {
   return (
     <div className="home">
       <div className="left">
-      <h1>Welcome Back</h1>
+      <h1>Create an account</h1>
       <form>
         <input type="text" placeholder='username...' />
+        <input type="text" placeholder='email...' />
         <input type="password" placeholder='password...' />
-        <button type="submit">Login</button>
+        <button type="submit">register</button>
         <span>Invalid</span>
 
-        <Link to={'/register'} className='link'>
-          Dont have an account?
+        <Link to={'/login'} className='link'>
+          Do you  have an account?
         </Link>
       </form>
       </div>
@@ -24,4 +25,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Register
