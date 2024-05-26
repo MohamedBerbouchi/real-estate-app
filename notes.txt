@@ -22,3 +22,11 @@ axios client
 
 kan3rf n5dm b wordpress wa5a ma3ndich chi experience kibara 
 fayt mgad 2 projects
+
+
+-----
+add user info to local storage
+jwt verify test AUTH AND admin
+add middleware 
+context
+protext profile
