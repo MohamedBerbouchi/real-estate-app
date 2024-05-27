@@ -1,21 +1,26 @@
 import "./profile.scss";
 //
-import React, { useState } from "react";
+import React, { startTransition, useContext, useState, useTransition } from "react";
 import Chat from "../../components/chat/chat";
 import List from "../../components/list/list";
 import { userData } from "../../lib/dummydata";
 import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../../lib/axiosClient";
+import { ProfileContext } from "../../context/profileContext";
 
 function Profile() {
   const [openChat, setOpenChat] = useState(false);
-  const [error, setError] = useState("");
+  const [isPending, startTranstaction] =  useTransition()
   const navigate = useNavigate("/");
-
+const { setUser} = useContext(ProfileContext)
   async function handleSignOut() {
     try {
-      await axiosClient.post("/auth/logout");
-      localStorage.removeItem("user");
+      startTranstaction( async ()=>{
+
+        await axiosClient.post("/auth/logout");
+      })
+      // localStorage.removeItem("user");
+      setUser(null)
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -44,7 +49,7 @@ function Profile() {
               <span>E-mail :</span>
               <span>john.doe@gmail.com</span>
             </div>
-            <button className="signout" onClick={handleSignOut}>sign out</button>
+            <button disabled={isPending} className="signout" onClick={handleSignOut}>sign out</button>
           </div>
           <div className="title">
             <h1>My List</h1>

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userData } from "../../lib/dummydata";
 import "./nav.scss";
 import axiosClient from "../../lib/axiosClient";
+import { ProfileContext } from "../../context/profileContext";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+   const {user} = useContext(ProfileContext)
 
   return (
     <nav>

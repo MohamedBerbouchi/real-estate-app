@@ -98,6 +98,13 @@ height: 100%;
                color: white;
                width: 100px;
                cursor: pointer;
+               &:disabled{
+                background-color: gray;
+               }
+               transition: all .3s ease;
+               &:active{
+                transform: scale(1.1);
+               }
             }
             .row{
                 display: flex;

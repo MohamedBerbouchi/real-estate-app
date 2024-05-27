@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './login.scss'
 import axiosClient from '../../lib/axiosClient'
+import { ProfileContext } from '../../context/profileContext'
 function Login() {
 const [error, setError] = useState('')
 const [loading, setLoading] = useState(false)
 const navigate = useNavigate()
+const { setUser} = useContext(ProfileContext)
+
   async function handleSubmit(e){
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -17,8 +20,7 @@ const navigate = useNavigate()
       const res = await axiosClient.post('/auth/login', {
         username, password
       })
-      console.log(res)
-      localStorage.setItem('user',JSON.stringify(res.data))
+      setUser(res.data)
       navigate('/')
     }catch(err){
       setError(err.response.data.message)
