@@ -4,9 +4,23 @@ import React, { useState } from "react";
 import Chat from "../../components/chat/chat";
 import List from "../../components/list/list";
 import { userData } from "../../lib/dummydata";
+import { Link, useNavigate } from "react-router-dom";
+import axiosClient from "../../lib/axiosClient";
 
 function Profile() {
   const [openChat, setOpenChat] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate("/");
+
+  async function handleSignOut() {
+    try {
+      await axiosClient.post("/auth/logout");
+      localStorage.removeItem("user");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="profilePage">
@@ -30,6 +44,7 @@ function Profile() {
               <span>E-mail :</span>
               <span>john.doe@gmail.com</span>
             </div>
+            <button className="signout" onClick={handleSignOut}>sign out</button>
           </div>
           <div className="title">
             <h1>My List</h1>
@@ -48,7 +63,7 @@ function Profile() {
         <div className="wrapper">
           <div className="messages">
             <h2>Messages</h2>
-            <div className="message" onClick={()=> setOpenChat(true)}>
+            <div className="message" onClick={() => setOpenChat(true)}>
               <img src={userData.img} alt="" className="user_img" />
               <div className="username">john doe</div>
               <p className="msg">Lorem ipsum dolor sit amet...</p>
@@ -79,9 +94,11 @@ function Profile() {
               <p className="msg">Lorem ipsum dolor sit amet...</p>
             </div>
           </div>
-          {openChat && <div className="chat_container">
-             <Chat setOpenChat={setOpenChat} />
-          </div>}
+          {openChat && (
+            <div className="chat_container">
+              <Chat setOpenChat={setOpenChat} />
+            </div>
+          )}
         </div>
       </div>
     </div>

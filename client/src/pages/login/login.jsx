@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './login.scss'
 import axiosClient from '../../lib/axiosClient'
 function Login() {
 const [error, setError] = useState('')
 const [loading, setLoading] = useState(false)
+const navigate = useNavigate()
   async function handleSubmit(e){
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -17,15 +18,14 @@ const [loading, setLoading] = useState(false)
         username, password
       })
       console.log(res)
-
+      localStorage.setItem('user',JSON.stringify(res.data))
+      navigate('/')
     }catch(err){
-      console.log(err)
       setError(err.response.data.message)
     }finally{
       setLoading(false)
     }
   }
-  console.log(error)
   return (
     <div className="login">
       <div className="left">

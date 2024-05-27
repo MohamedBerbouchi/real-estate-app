@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { userData } from "../../lib/dummydata";
 import "./nav.scss";
+import axiosClient from "../../lib/axiosClient";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-  const user = true;
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
 
   return (
     <nav>
@@ -30,14 +31,23 @@ function Navbar() {
       <div className="right">
         {!user && (
           <>
-            <button>Sign in</button>
-            <button>Sign up</button>
+            <Link to='/login'>
+            <button>
+              Sign in
+              </button>
+            </Link>
+            <Link to='/register'>
+            <button>
+              Sign up
+              </button>
+            </Link>
+
            
           </>
         )}
         {user && <div className="profile">
-        <img src={userData.img} alt="" className="user_img" />
-        <h2 className="username">{userData.name}</h2>
+        <img src={user.avatar || '/noavatar.jpg'} alt="" className="user_img" />
+        <h2 className="username">{user.username}</h2>
         <div className="button">
           <Link to='/profile' className="profile_link">Profile</Link>
           <span>3</span>
