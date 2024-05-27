@@ -20,9 +20,17 @@ function ProfileUpdate() {
         <div className="wrapper">
         <h1>Update Profile</h1>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="">Username
         <input name='username' type="text" placeholder='username...' />
+        </label>
+        <label htmlFor="">Email 
+
         <input name='email' type="email" placeholder='email...' />
+        </label>
+        <label htmlFor="">Password 
+
         <input name='password' type="password" placeholder='password...' />
+        </label>
         <button disabled={loading} type="submit">update</button>
         {error && <span>{error}</span>}
 
