@@ -33,7 +33,9 @@ const { setUser} = useContext(ProfileContext)
         <div className="wrapper">
           <div className="title">
             <h1>User Information</h1>
-            <button>Update Profile</button>
+           <Link to={'/profile/update'}>
+           <button>Update Profile</button>
+           </Link>
           </div>
 
           <div className="user_info">

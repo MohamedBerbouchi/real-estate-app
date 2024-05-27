@@ -1,0 +1,127 @@
+@import '../../responsive.scss';
+.profilePage {
+  display: flex;
+height: 100%;
+@include md{
+  padding-top: 40px;
+  flex-direction: column;
+  overflow-y: scroll;
+ }
+.left, .messages{
+    &::-webkit-scrollbar {
+        width: 5px;
+      }
+  
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+  
+      }
+  
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+  
+      }
+  
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+}
+  .left {
+    flex: 3;
+    height: 100%;
+    overflow-y: auto;
+    @include md{
+      height: max-content;
+      flex: none;
+     }
+    &::-webkit-scrollbar {
+        width: 5px;
+      }
+  
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+  
+      }
+  
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+  
+      }
+  
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    .wrapper{
+      flex: 3;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 300px;
+        input{
+            width: 100%;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #999;
+        }
+        button{
+            width: 100%;
+            padding: 20px;
+            border-radius: 10px;
+            border: none;
+            text-align: center;
+            background-color: rgb(48, 124, 124);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            &:disabled{
+              background-color: #999;
+            }
+        }
+        span{
+            color: red;
+        }
+        .link{
+            color: darkgreen;
+            text-decoration: underline;
+        }
+    }
+    }
+  }
+
+  .right {
+    flex: 2;
+    background-color:  var(--light-yellow);
+    height: 100%;
+    @include md{
+      height: max-content;
+      flex: none
+    }
+    .wrapper{
+       
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .avatar{
+          width: 200px;
+          height: 200px;
+        }
+    }
+     
+  }
+}
