@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.scss";
-import { ProvileProvider } from "./context/profileContext.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ProvileProvider>
+    <AuthProvider>
       <App />
-    </ProvileProvider>
+    </AuthProvider>
   </React.StrictMode>
 );

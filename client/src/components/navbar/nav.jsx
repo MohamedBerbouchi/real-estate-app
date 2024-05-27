@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { userData } from "../../lib/dummydata";
 import "./nav.scss";
 import axiosClient from "../../lib/axiosClient";
-import { ProfileContext } from "../../context/profileContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-   const {user} = useContext(ProfileContext)
+   const {user} = useContext(AuthContext)
 
   return (
     <nav>

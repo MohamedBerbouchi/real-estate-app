@@ -6,7 +6,7 @@ import List from "../../components/list/list";
 import { userData } from "../../lib/dummydata";
 import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../../lib/axiosClient";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/auth";
 
 function Profile() {
   const [openChat, setOpenChat] = useState(false);

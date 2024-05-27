@@ -6,7 +6,7 @@ import List from "../../components/list/list";
 import { userData } from "../../lib/dummydata";
 import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../../lib/axiosClient";
-import { ProfileContext } from "../../context/profileContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function ProfileUpdate() {
   const [error, setError] = useState('')
@@ -15,7 +15,7 @@ function ProfileUpdate() {
 
   }
   return (
-    <div className="profilePage">
+    <div className="profilePageUpdate">
       <div className="left">
         <div className="wrapper">
         <h1>Update Profile</h1>

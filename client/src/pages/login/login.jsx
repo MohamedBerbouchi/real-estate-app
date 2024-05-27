@@ -2,12 +2,12 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './login.scss'
 import axiosClient from '../../lib/axiosClient'
-import { ProfileContext } from '../../context/profileContext'
+import { AuthContext } from '../../context/AuthContext'
 function Login() {
 const [error, setError] = useState('')
 const [loading, setLoading] = useState(false)
 const navigate = useNavigate()
-const { setUser} = useContext(ProfileContext)
+const { setUser} = useContext(AuthContext)
 
   async function handleSubmit(e){
     e.preventDefault()
