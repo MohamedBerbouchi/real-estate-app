@@ -44,8 +44,6 @@ async function updateUser(req, res) {
   let hashedPassword = null;
   const userId = req.params.id;
   const tokenUserId = req.userId;
-  console.log(userId)
-  console.log(tokenUserId)
   if (userId !== tokenUserId) {
     return res.status(403).json({ message: "Not authorized" });
   }
@@ -63,7 +61,8 @@ async function updateUser(req, res) {
         ...(avatar && {avatar})
       }
     });
-    const  {password: _, ...userWithoutPassword} = updatedUser
+   
+    const  {password: Upassword, ...userWithoutPassword} = updatedUser
     res.status(200).json(userWithoutPassword)
   } catch (err) {
     console.log(err);
