@@ -44,6 +44,8 @@ async function updateUser(req, res) {
   let hashedPassword = null;
   const userId = req.params.id;
   const tokenUserId = req.userId;
+  console.log(userId)
+  console.log(tokenUserId)
   if (userId !== tokenUserId) {
     return res.status(403).json({ message: "Not authorized" });
   }
@@ -53,7 +55,7 @@ async function updateUser(req, res) {
       hashedPassword = await bcrypt.hash(password, 10);
     }
     const updatedUser = await prisma.user.update({
-      where: { id },
+      where: { id:userId },
       data:{
         username,
         email,
