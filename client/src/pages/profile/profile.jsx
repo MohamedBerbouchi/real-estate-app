@@ -11,6 +11,8 @@ import { AuthContext } from "../../context/AuthContext";
 function Profile() {
   const [openChat, setOpenChat] = useState(false);
   const [isPending, startTranstaction] =  useTransition()
+  const {user} = useContext(AuthContext)
+
   const navigate = useNavigate("/");
 const { setUser} = useContext(AuthContext)
   async function handleSignOut() {
@@ -41,15 +43,15 @@ const { setUser} = useContext(AuthContext)
           <div className="user_info">
             <div className="row">
               <span>Avatar :</span>
-              <img src={userData.img} alt="" className="user_img" />
+              <img src={user.avatar || '/noavatar.jpg'} alt="" className="user_img" />
             </div>
             <div className="row">
               <span>Username :</span>
-              <span>{userData.name}</span>
+              <span>{user.username}</span>
             </div>
             <div className="row">
               <span>E-mail :</span>
-              <span>john.doe@gmail.com</span>
+              <span>{user.email}</span>
             </div>
             <button disabled={isPending} className="signout" onClick={handleSignOut}>sign out</button>
           </div>

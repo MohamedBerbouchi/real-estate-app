@@ -10,6 +10,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 function ProfileUpdate() {
   const [error, setError] = useState('')
+  const {user} = useContext(AuthContext)
   const [loading, setLoading] = useState(false)
   async function handleSubmit(){
 
@@ -21,11 +22,11 @@ function ProfileUpdate() {
         <h1>Update Profile</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="">Username
-        <input name='username' type="text" placeholder='username...' />
+        <input name='username' type="text" placeholder='username...' defaultValue={user.username} />
         </label>
         <label htmlFor="">Email 
 
-        <input name='email' type="email" placeholder='email...' />
+        <input name='email' type="email" placeholder='email...' defaultValue={user.email} />
         </label>
         <label htmlFor="">Password 
 
