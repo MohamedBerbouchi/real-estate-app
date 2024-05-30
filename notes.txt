@@ -51,7 +51,8 @@ jwt verify test AUTH AND admin (testAuth)
 add middleware 👍
 get all users (update, delete...)in api 👍
 post api 👍
-1-update profile page func 
-2-add image - cloudinary react - create upload preset (couldnary, firebase, filestack)
-3-add Post page  and PostDetails models- npx prisma db push
+1-update profile page func  👍
+2-add image - cloudinary react - create upload preset (couldnary, firebase, filestack)👍
+3-add Post page 👍 and PostDetails models- npx prisma db push
+4-auth layout👍
 

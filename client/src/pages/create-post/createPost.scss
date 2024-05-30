@@ -1,0 +1,165 @@
+@import "../../responsive.scss";
+.AddPostPage {
+  display: flex;
+  height: 100%;
+  @include md {
+    padding-top: 40px;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+  .left,
+  .messages {
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 3px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+  .left {
+    flex: 3;
+    height: 100%;
+    overflow-y: auto;
+    @include md {
+      height: max-content;
+      flex: none;
+    }
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 3px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    .wrapper {
+      flex: 3;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      form {
+        display: flex;
+        flex-wrap: wrap;
+      padding-bottom: 50px;
+
+        width: 100%;
+        gap: 20px;
+        input,select {
+          padding: 20px;
+          border-radius: 10px;
+          border: 1px solid #999;
+          font-size: 16px;
+        }
+        .item{
+          width: 30%;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          span{
+            text-transform: capitalize;
+          }
+        }
+        .desc{
+          width: 100%;
+          padding-right: 30px;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          height: 300px;
+          .ql-container {
+            height: 230px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+          }
+          
+          .ql-editor {
+            height: 100%;
+            flex: 1;
+            overflow-y: auto;
+            width: 100%;
+            font-size: 16px;
+          }
+          // .quill > .ql-container > .ql-editor{
+          //   height: 200px;
+          //   font-size: 16px;
+          // }
+        }
+        button.btn {
+          margin-top: 30px;
+          width: 30%;
+          padding: 20px;
+          border-radius: 10px;
+          border: none;
+          text-align: center;
+          background-color: rgb(48, 124, 124);
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          &:disabled {
+            background-color: #999;
+          }
+          &:hover{
+            opacity: .9;
+          }
+        }
+        .error {
+          color: red;
+        }
+        .link {
+          color: darkgreen;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .right {
+    flex: 2;
+    background-color: var(--light-yellow);
+    height: 100%;
+    @include md {
+      height: max-content;
+      flex: none;
+    }
+    .wrapper {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 30px;
+      img {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+    }
+  }
+}

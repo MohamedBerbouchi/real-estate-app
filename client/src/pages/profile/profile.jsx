@@ -57,7 +57,9 @@ const { setUser} = useContext(AuthContext)
           </div>
           <div className="title">
             <h1>My List</h1>
+            <Link to={'/post/create'}>
             <button>create new post</button>
+            </Link>
           </div>
           <List />
 

@@ -117,10 +117,15 @@ height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+        gap: 30px;
         .avatar{
           width: 200px;
           height: 200px;
+          border-radius: 10px;
+          object-fit: cover;
         }
+        
     }
      
   }

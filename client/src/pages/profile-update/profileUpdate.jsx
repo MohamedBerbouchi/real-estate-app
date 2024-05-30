@@ -12,34 +12,45 @@ import { userData } from "../../lib/dummydata";
 import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../../lib/axiosClient";
 import { AuthContext } from "../../context/AuthContext";
+import UploadWidget from "../../components/upload-widget/upload-widget";
+import NewUploadWidget from "../../components/upload-widget/new-upload-widget";
 
 function ProfileUpdate() {
   const [error, setError] = useState("");
   const { user, setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const [avatar, setAvatar] = useState(user.avatar);
+  const navigate = useNavigate();
   async function handleSubmit(e) {
     e.preventDefault();
-    setError('')
+    setError("");
     const formData = new FormData(e.target);
     // console.log(formData.values)
     const data = Object.fromEntries(formData);
     try {
-      setLoading(true)
-      console.log(data)
+      setLoading(true);
+      console.log(data);
       const res = await axiosClient.put(`/users/${user.id}`, {
-        ...data
+        ...data,
+        avatar
       });
-      console.log(res.data)
+      console.log(res.data);
 
-     setUser(res.data)
-     navigate('/profile')
+      setUser(res.data);
+      navigate("/profile");
     } catch (err) {
       console.log(err);
       setError(err.response.data.message);
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
+  }
+  const uwConfig= {
+    cloudName: 'dgfoioz0l',
+    uploadPreset: 'simo_real_estate_app',
+    folder: "avatars",
+    multiple: false,  //restrict upload to a single file
+    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
   }
   return (
     <div className="profilePageUpdate">
@@ -85,7 +96,18 @@ function ProfileUpdate() {
 
       <div className="right">
         <div className="wrapper">
-          <img className="avatar" src="/noavatar.jpg" alt="" />
+          <img className="avatar" src={avatar  || "/noavatar.jpg"} alt="" />
+          {/* <UploadWidget
+            uwConfig={{
+              cloudName: "dgfoioz0l",
+              uploadPreset: "simo_real_estate_app",
+              folder: "avatars", //upload files to the specified folder
+              // multiple: false,  //restrict upload to a single file
+              // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+            }}
+            setAssets={setAvatar}
+          /> */}
+          <NewUploadWidget  setAssets={setAvatar} uwConfig={uwConfig} />
         </div>
       </div>
     </div>
