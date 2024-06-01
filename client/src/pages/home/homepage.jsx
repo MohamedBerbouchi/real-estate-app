@@ -1,12 +1,18 @@
 import React from "react";
 import Filter from "../../components/filter/filter";
 import "./homepage.scss";
+import { toast } from "react-toastify";
 function Homepage() {
+  const notify = () => toast("Wow so easy !");
+
+
   return (
     <div className="home">
       <div className="left">
         <div className="wrapper">
           <h1>Find Real Estate & Get Your Dream Place</h1>
+         
+
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
             explicabo suscipit cum eius, iure est nulla animi consequatur

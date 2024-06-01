@@ -55,7 +55,17 @@ function CreatePost() {
         ...newPost
       } )
       console.log(createPost)
- 
+      toast('😎 post created!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
     }catch(err){
       console.log(err)
       setError(err.response.data.messages)

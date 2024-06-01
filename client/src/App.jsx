@@ -1,19 +1,21 @@
-import { useState } from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Homepage from './pages/home/homepage';
-import ListPage from './pages/list/listpage';
-import Login from './pages/login/login';
-import Profile from './pages/profile/profile';
-import Register from './pages/register/register';
-import SinglePage from './pages/singlepage/singlePage';
-import ProfileUpdate from './pages/profile-update/profileUpdate';
-import CreatePost from './pages/create-post/createPost';
-import Layout from './pages/layout/layout';
-import AuthLayout from './pages/layout/authLayout';
-import axios from 'axios';
+import { useState } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Homepage from "./pages/home/homepage";
+import ListPage from "./pages/list/listpage";
+import Login from "./pages/login/login";
+import Profile from "./pages/profile/profile";
+import Register from "./pages/register/register";
+import SinglePage from "./pages/singlepage/singlePage";
+import ProfileUpdate from "./pages/profile-update/profileUpdate";
+import CreatePost from "./pages/create-post/createPost";
+import Layout from "./pages/layout/layout";
+import AuthLayout from "./pages/layout/authLayout";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -23,7 +25,7 @@ function App() {
           path: "/",
           element: <Homepage />,
         },
-        
+
         {
           path: "list",
           element: <ListPage />,
@@ -39,13 +41,14 @@ function App() {
         {
           path: ":id",
           element: <SinglePage />,
-          loader : SinglePageLoader
+          loader: SinglePageLoader,
         },
-      ]
-    },{
-      path:'/',
+      ],
+    },
+    {
+      path: "/",
       element: <AuthLayout />,
-      children:[
+      children: [
         {
           path: "/post/create",
           element: <CreatePost />,
@@ -58,22 +61,24 @@ function App() {
           path: "profile/update",
           element: <ProfileUpdate />,
         },
-      ]
-    }
+      ],
+    },
   ]);
 
   return (
-<RouterProvider router={router} />
-  )
+    <>
+      <ToastContainer />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
-export default App
+export default App;
 
-
-const SinglePageLoader =  async (p) =>{
-console.log(p)
-  const data = await axios.get('https://jsonplaceholder.typicode.com/todos')
+const SinglePageLoader = async (p) => {
+  console.log(p);
+  const data = await axios.get("https://jsonplaceholder.typicode.com/todos");
   return {
-    data: data.data
-  }
-}
+    data: data.data,
+  };
+};
