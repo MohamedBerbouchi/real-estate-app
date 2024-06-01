@@ -19,7 +19,7 @@ function CreatePost() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+    setError('')
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     console.log(data);
@@ -64,11 +64,11 @@ function CreatePost() {
         draggable: true,
         progress: undefined,
         theme: "light",
-        transition: Bounce,
-        });
+         });
     }catch(err){
       console.log(err)
-      setError(err.response.data.messages)
+      // setError(err.response.data.messages)
+      setError('something went wrong can you retry!')
     } finally{
       setLoading(false)
 
@@ -181,7 +181,7 @@ function CreatePost() {
             <button disabled={loading} type="submit" className="btn">
               {loading ? 'creating...' : 'create'}
             </button>
-            {error && <span>{error}</span>}
+            {error && <span className="error">{error}</span>}
           </form>
         </div>
       </div>
