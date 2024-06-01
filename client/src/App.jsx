@@ -10,6 +10,7 @@ import ProfileUpdate from './pages/profile-update/profileUpdate';
 import CreatePost from './pages/create-post/createPost';
 import Layout from './pages/layout/layout';
 import AuthLayout from './pages/layout/authLayout';
+import axios from 'axios';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -38,6 +39,7 @@ function App() {
         {
           path: ":id",
           element: <SinglePage />,
+          loader : SinglePageLoader
         },
       ]
     },{
@@ -66,3 +68,12 @@ function App() {
 }
 
 export default App
+
+
+const SinglePageLoader =  async (p) =>{
+console.log(p)
+  const data = await axios.get('https://jsonplaceholder.typicode.com/todos')
+  return {
+    data: data.data
+  }
+}

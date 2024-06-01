@@ -6,7 +6,7 @@ react-router-dom (for router & fetch data)
 react-quill (editor)
 react-leaflet (for maps)
 cloudinary react - (https://cloudinary.com/documentation/react_image_and_video_upload)
-
+dompurify (sanitiz)
 =>back
 express
 prisma
@@ -55,4 +55,8 @@ post api 👍
 2-add image - cloudinary react - create upload preset (couldnary, firebase, filestack)👍
 3-add Post page 👍 and PostDetails models- npx prisma db push
 4-auth layout👍
-
+add post 
+single page react-router-dom  (loader)
+list & home search -for loader react router dom defer
+saved post
+chat model AND message (routes)
