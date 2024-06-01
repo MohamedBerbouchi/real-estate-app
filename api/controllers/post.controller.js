@@ -12,7 +12,11 @@ async function getPosts(req, res) {
 async function getPostById(req, res) {
   try {
     const id = req.params.id
-    const posts = await prisma.post.findUnique({where:{id}})
+    const posts = await prisma.post.findUnique({
+      where:{id},
+      include: {PostDetail: true}
+    
+    })
     res.status(500).json(posts)
    
   } catch (err) {
@@ -24,12 +28,16 @@ async function addPost(req, res) {
   try {
    const body = req.body
    const userId = req.userId
-   console.log(body)
+   const postInfo = body.post
+   const postDetails = body.PostDetail
    
    const post = await prisma.post.create({
     data:{
-      ...body,
-      userId : userId
+      ...postInfo,
+      userId: userId,
+      PostDetail: {
+        create: postDetails
+      }
     }
    })
    res.status(200).json(post)
@@ -53,15 +61,17 @@ async function deletePost(req,  res) {
     const userId = req.userId
     // if(userId === post.userId)
     const post = await prisma.post.findUnique({where:{id}})
-    console.log(post)
-    console.log(post.userId)
+    if(!post){
+     return  res.status(403).json({message: "post doesnt exist"})
+
+    }
     if(post.userId !== userId){
-      res.status(402).json({message: "Not Allowed to delete user"})
+     return  res.status(402).json({message: "Not Allowed to delete post"})
     }
      await prisma.post.delete({
       where : {id}
      })
-    res.status(200).json({message: 'user deleted'})
+    res.status(200).json({message: 'post deleted'})
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "failed to delete Post" });
