@@ -9,17 +9,18 @@ import axiosClient from "../../lib/axiosClient";
 import { AuthContext } from "../../context/AuthContext";
 import UploadWidget from "../../components/upload-widget/upload-widget";
 import NewUploadWidget from "../../components/upload-widget/new-upload-widget";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
+import {useNavigate} from 'react-router-dom'
 function CreatePost() {
   const [error, setError] = useState("");
   const { user, setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
   const [images, setImages] = useState([]);
-
+  const navigate = useNavigate();
   async function handleSubmit(e) {
     e.preventDefault();
-    setError('')
+    setError("");
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     console.log(data);
@@ -28,8 +29,8 @@ function CreatePost() {
         title: data.title,
         price: parseInt(data.price),
         images: images,
-        address:  data.address,
-        city: data.city,
+        address: data.address,
+        city: data.city.trim().toLowerCase(),
         bedroom: parseInt(data.bedroom),
         bathroom: parseInt(data.bedroom),
         latitude: data.latitude,
@@ -48,14 +49,14 @@ function CreatePost() {
         restaurant: parseInt(data.restaurant),
       },
     };
-    console.log(newPost)
-    setLoading(true)
-    try{
-      const createPost = await axiosClient.post('/posts', {
-        ...newPost
-      } )
-      console.log(createPost)
-      toast('😎 post created!', {
+    console.log(newPost);
+    setLoading(true);
+    try {
+      const createPost = await axiosClient.post("/posts", {
+        ...newPost,
+      });
+      console.log(createPost);
+      toast("😎 post created!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -64,14 +65,14 @@ function CreatePost() {
         draggable: true,
         progress: undefined,
         theme: "light",
-         });
-    }catch(err){
-      console.log(err)
+      });
+      navigate('/profile');
+    } catch (err) {
+      console.log(err);
       // setError(err.response.data.messages)
-      setError('something went wrong can you retry!')
-    } finally{
-      setLoading(false)
-
+      setError("something went wrong can you retry!");
+    } finally {
+      setLoading(false);
     }
   }
   const uwConfig = {
@@ -81,8 +82,7 @@ function CreatePost() {
     multiple: true, //restrict upload to a single file
     // sources: [ "local", "url"], // restrict the upload sources to URL and local files
   };
- 
- 
+
   return (
     <div className="AddPostPage">
       <div className="left">
@@ -179,7 +179,7 @@ function CreatePost() {
               <input name="restaurant" required type="number" min={0} />
             </label>
             <button disabled={loading} type="submit" className="btn">
-              {loading ? 'creating...' : 'create'}
+              {loading ? "creating..." : "create"}
             </button>
             {error && <span className="error">{error}</span>}
           </form>

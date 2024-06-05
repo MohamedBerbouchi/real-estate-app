@@ -3,8 +3,11 @@ import List from "../../components/list/list";
 import Map from "../../components/map/map";
 import { listData } from "../../lib/dummydata";
 import "./listpage.scss";
+import { useLoaderData } from "react-router-dom";
 
 function ListPage() {
+  const data = useLoaderData()
+  console.log(data)
   return (
     <div className="listpage">
       <div className="content">

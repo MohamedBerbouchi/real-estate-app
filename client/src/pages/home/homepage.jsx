@@ -1,5 +1,5 @@
 import React from "react";
-import Filter from "../../components/filter/filter";
+import SearchBar from "../../components/searchBar/searchBar";
 import "./homepage.scss";
 import { toast } from "react-toastify";
 function Homepage() {
@@ -21,7 +21,7 @@ function Homepage() {
           </p>
 
           <div className="filter">
-            <Filter />
+            <SearchBar />
           </div>
           <div className="boxes">
             <div className="box">
