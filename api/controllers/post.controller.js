@@ -1,9 +1,8 @@
 import prisma from "../lib/prisma.js";
 import bcrypt from "bcrypt";
+import {ObjectId} from 'mongodb'
 async function getPosts(req, res) {
   const { bedroom, property, type, location, minPrice, MaxPrice } = req.query;
-  
-
   try {
     console.log(req.query);
     const posts = await prisma.post.findMany({
@@ -11,7 +10,10 @@ async function getPosts(req, res) {
         bedroom: bedroom || undefined,
         property: property || undefined,
         type: type || undefined,
-        city: location ?  location.toLowerCase() : undefined,
+        city: {
+          contains: location ?  location.trim().toLowerCase() : undefined,
+          mode: 'insensitive'
+        },
         ...(minPrice && { price: { gte: parseInt(minPrice) } }),
         ...(minPrice && { price: { lte: parseInt(MaxPrice) } }),
         //  price:{
@@ -30,11 +32,18 @@ async function getPosts(req, res) {
 async function getPostById(req, res) {
   try {
     const id = req.params.id;
+    console.log(typeof id)
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
+
     const posts = await prisma.post.findUnique({
       where: { id },
       include: { PostDetail: true },
     });
-    res.status(500).json(posts);
+    console.log(posts)
+    
+    res.status(200).json(posts);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "failed to get Post" });

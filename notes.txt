@@ -45,7 +45,8 @@ axios client
 kan3rf n5dm b wordpress wa5a ma3ndich chi experience kibara 
 fayt mgad 2 projects
 
-
+posts?type=buy&location=&minPrice=0&MaxPrice=1000000
+posts?type=rent&location=&minPrice=0&MaxPrice=1200000
 -----
 add user info to local storage z👍
 context👍
@@ -62,7 +63,9 @@ post api 👍
 add post 👍
 single page react-router-dom  (loader)
 list & home search -for loader react router dom defer
-saved post
+saved post 
+proviles postes and saved post routes
 chat model AND message (routes)
 chat crud
 socket.io
+notification

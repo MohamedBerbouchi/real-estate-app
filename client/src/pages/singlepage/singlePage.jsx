@@ -3,16 +3,16 @@ import Map from "../../components/map/map";
 import Slider from "../../components/slider/slider";
 import { singlePostData, userData } from "../../lib/dummydata";
 import "./singlePage.scss";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import { useLoaderData, useSearchParams, Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 function SinglePage() {
   const result = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams()
-console.log('result', result)
  
-function hCLick(){
-  setSearchParams({
-    type:'simo'
-  })
+const data = useLoaderData()
+if(!data.ok){
+  toast.error('Failed to fetch post')
+  return <Navigate to={'/'} />
 }
 return (
     <div className="singlepage">
@@ -38,7 +38,6 @@ return (
         <div className="desc">
         Future alike hill pull picture swim magic chain seed engineer nest outer raise bound easy poetry gain loud weigh me recognize farmer bare danger. actually put square leg vessels earth engine matter key cup indeed body film century shut place environment were stage vertical roof bottom lady function breeze darkness beside tin view local breathe carbon swam declared magnet escape has from pile apart route coffee storm someone hold space use ahead sheep jungle closely natural attached part top grain your grade trade corn salmon trouble new bend most teacher range anybody every seat fifteen eventually
 
-<button onClick={hCLick}>click</button>
         </div>
         </div>
 

@@ -4,6 +4,7 @@ import Pin from '../pin/pin';
 import './map.scss';
 
 function Map({items}){
+  console.log(items)
   return (
     <MapContainer center={[52.4797, -1.90269]} zoom={7} scrollWheelZoom={false} className='map'>
     <TileLayer

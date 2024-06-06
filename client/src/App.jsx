@@ -13,7 +13,7 @@ import AuthLayout from "./pages/layout/authLayout";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { ListPageLoader } from "./lib/loaders";
+import { ListPageLoader, SinglePageLoader } from "./lib/loaders";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -76,11 +76,4 @@ function App() {
 }
 
 export default App;
-
-const SinglePageLoader = async (p) => {
-  console.log(p);
-  const data = await axios.get("https://jsonplaceholder.typicode.com/todos");
-  return {
-    data: data.data,
-  };
-};
+ 

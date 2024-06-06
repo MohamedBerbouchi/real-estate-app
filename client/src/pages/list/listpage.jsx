@@ -1,13 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import List from "../../components/list/list";
 import Map from "../../components/map/map";
 import { listData } from "../../lib/dummydata";
 import "./listpage.scss";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 
 function ListPage() {
   const data = useLoaderData()
-  console.log(data)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [query, setQuery] = useState({
+    'type' : searchParams.get('type') || '',
+    'location' : searchParams.get('location') || '',
+    'minPrice' : searchParams.get('minPrice') || '',
+    'MaxPrice' : searchParams.get('MaxPrice') || '',
+    'property' : searchParams.get('property') || '',
+    'bedroom' : searchParams.get('bedroom') || '',
+  })
+
+  if(!data.ok){
+    toast.error('Failed to fetch posts')
+    return <Navigate to={'/'} />
+  }
+  const handleChange = (e)=>{
+    const {name, value} = e.target;
+    setQuery(prev=> ({...prev, [name]: value}))
+  }
+  const handleSearchClick = ()=>{
+    setSearchParams(query)
+  }
   return (
     <div className="listpage">
       <div className="content">
@@ -19,12 +39,12 @@ function ListPage() {
           <div className="filter_container">
             <div className="item">
               <label htmlFor="Location">Location</label>
-              <input type="text" placeholder="City Location" />
+              <input type="text" placeholder="City Location" name="location" onChange={handleChange} />
             </div>
             <div className="bottom">
               <div className="item">
                 <label htmlFor="type">Type</label>
-                <select name="type" id="type">
+                <select name="type" id="type" onChange={handleChange}>
                   <option value="">any</option>
                   <option value="buy">Buy</option>
                   <option value="rent">Rent</option>
@@ -32,7 +52,7 @@ function ListPage() {
               </div>
               <div className="item">
                 <label htmlFor="Property">Property</label>
-                <select name="property" id="Property">
+                <select name="property" id="Property" onChange={handleChange}>
                   <option value="">any</option>
                   <option value="apartment">Apartment</option>
                   <option value="house">House</option>
@@ -43,27 +63,27 @@ function ListPage() {
 
               <div className="item">
                 <label htmlFor="min">Min Price</label>
-                <input id="min" type="number" placeholder="any" />
+                <input id="min" type="number" placeholder="any" onChange={handleChange} />
               </div>
               <div className="item">
                 <label htmlFor="max">Max Price</label>
-                <input id="max" type="number" placeholder="any" />
+                <input id="max" type="number" placeholder="any" onChange={handleChange} />
               </div>
               <div className="item">
                 <label htmlFor="Bedroom">Bedroom</label>
-                <input id="Bedroom" type="text" placeholder="any" />
+                <input id="Bedroom" type="text" placeholder="any" onChange={handleChange} />
               </div>
-              <button>
+              <button onClick={handleSearchClick} style={{cursor:'pointer'}}>
                 <img src="/search.png" alt="" />
               </button>
             </div>
           </div>
-          <List />
+          <List items={data.data} />
         </div>
       </div>
 
       <div className="map_container">
-        <Map items={listData} />
+        <Map items={data.data} />
       </div>
     </div>
   );
