@@ -88,9 +88,9 @@ async function deletePost(req, res) {
     if (!post) {
       return res.status(403).json({ message: "post doesnt exist" });
     }
-    if (post.userId !== userId) {
-      return res.status(402).json({ message: "Not Allowed to delete post" });
-    }
+    // if (post.userId !== userId) {
+    //   return res.status(402).json({ message: "Not Allowed to delete post" });
+    // }
     await prisma.post.delete({
       where: { id },
     });
