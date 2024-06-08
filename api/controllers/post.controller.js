@@ -15,7 +15,7 @@ async function getPosts(req, res) {
           mode: 'insensitive'
         },
         ...(minPrice && { price: { gte: parseInt(minPrice) } }),
-        ...(minPrice && { price: { lte: parseInt(MaxPrice) } }),
+        ...(MaxPrice && { price: { lte: parseInt(MaxPrice) } }),
         //  price:{
         //   gte: minPrice || 0,
         //   lte : MaxPrice || 100000
@@ -31,7 +31,7 @@ async function getPosts(req, res) {
 }
 async function getPostById(req, res) {
   try {
-    const id = req.params.id;
+    const id = req.params.id; 
     console.log(typeof id)
     if (!ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid ID format" });

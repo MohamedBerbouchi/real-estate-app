@@ -1,45 +1,49 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import List from "../../components/list/list";
 import Map from "../../components/map/map";
 import { listData } from "../../lib/dummydata";
 import "./listpage.scss";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import { Await, useLoaderData, useSearchParams } from "react-router-dom";
 
 function ListPage() {
-  const data = useLoaderData()
-  const [searchParams, setSearchParams] = useSearchParams()
+  const data = useLoaderData();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState({
-    'type' : searchParams.get('type') || '',
-    'location' : searchParams.get('location') || '',
-    'minPrice' : searchParams.get('minPrice') || '',
-    'MaxPrice' : searchParams.get('MaxPrice') || '',
-    'property' : searchParams.get('property') || '',
-    'bedroom' : searchParams.get('bedroom') || '',
-  })
+    type: searchParams.get("type") || "",
+    location: searchParams.get("location") || "",
+    minPrice: searchParams.get("minPrice") || "",
+    MaxPrice: searchParams.get("MaxPrice") || "",
+    property: searchParams.get("property") || "",
+    bedroom: searchParams.get("bedroom") || "",
+  });
 
-  if(!data.ok){
-    toast.error('Failed to fetch posts')
-    return <Navigate to={'/'} />
+  if (!data.ok) {
+    toast.error("Failed to fetch posts");
+    return <Navigate to={"/"} />;
   }
-  const handleChange = (e)=>{
-    const {name, value} = e.target;
-    setQuery(prev=> ({...prev, [name]: value}))
-  }
-  const handleSearchClick = ()=>{
-    setSearchParams(query)
-  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setQuery((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleSearchClick = () => {
+    setSearchParams(query);
+  };
   return (
     <div className="listpage">
       <div className="content">
-      
         <div className="wrapper">
-        <h1>
-          Search results for <b>London</b>
-        </h1>
+          <h1>
+            Search results for <b>London</b>
+          </h1>
           <div className="filter_container">
             <div className="item">
               <label htmlFor="Location">Location</label>
-              <input type="text" placeholder="City Location" name="location" onChange={handleChange} />
+              <input
+                type="text"
+                placeholder="City Location"
+                name="location"
+                onChange={handleChange}
+              />
             </div>
             <div className="bottom">
               <div className="item">
@@ -63,27 +67,60 @@ function ListPage() {
 
               <div className="item">
                 <label htmlFor="min">Min Price</label>
-                <input id="min" type="number" placeholder="any" onChange={handleChange} />
+                <input
+                  id="min"
+                  type="number"
+                  placeholder="any"
+                  onChange={handleChange}
+                />
               </div>
               <div className="item">
                 <label htmlFor="max">Max Price</label>
-                <input id="max" type="number" placeholder="any" onChange={handleChange} />
+                <input
+                  id="max"
+                  type="number"
+                  placeholder="any"
+                  onChange={handleChange}
+                />
               </div>
               <div className="item">
                 <label htmlFor="Bedroom">Bedroom</label>
-                <input id="Bedroom" type="text" placeholder="any" onChange={handleChange} />
+                <input
+                  id="Bedroom"
+                  type="text"
+                  placeholder="any"
+                  onChange={handleChange}
+                />
               </div>
-              <button onClick={handleSearchClick} style={{cursor:'pointer'}}>
+              <button onClick={handleSearchClick} style={{ cursor: "pointer" }}>
                 <img src="/search.png" alt="" />
               </button>
             </div>
           </div>
-          <List items={data.data} />
+          <Suspense fallback={<h1>Loading posts ...</h1>}>
+            <Await
+              resolve={data.postResolve}
+              errorElement={<div>Could not load Posts 😬</div>}
+              children={(postResolve) => (
+                // <Reviews items={resolvedReviews} />
+                  <List items={postResolve.data} />
+
+              )}
+            />
+          </Suspense>
         </div>
       </div>
 
       <div className="map_container">
-        <Map items={data.data} />
+        {/* <Map items={data.data} /> */}
+        <Suspense fallback={<h1>Loading map ...</h1>}>
+            <Await
+              resolve={data.postResolve}
+              errorElement={<div>Could not load Posts 😬</div>}
+              children={(postResolve) => ( <Map items={postResolve.data} />)}
+            />
+          </Suspense>
+      
       </div>
     </div>
   );

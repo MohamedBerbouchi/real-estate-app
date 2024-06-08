@@ -20,7 +20,7 @@ function Slider({ images }) {
 
     }
   }
-  console.log(currentImg)
+  console.log(images)
   return (
     <div className="slider">
     {currentImg !== null &&  <div className="fullScreenSlider">
@@ -41,7 +41,7 @@ function Slider({ images }) {
       <div className="images">
         {images.slice(1).map((img, index) => (
           <img key={index} src={images[index + 1]} alt=""
-            onClick={ ()=> setCurrentImg(index+1)} className="main_image" />
+            onClick={ ()=> setCurrentImg(index+1)}  />
         ))}
       </div>
     </div>

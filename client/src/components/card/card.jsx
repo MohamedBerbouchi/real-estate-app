@@ -5,7 +5,7 @@ function Card({ item }) {
   return (
     <div className="card">
       <Link to={`/${item.id}`} className="img_container">
-        <img src={item.img} alt="" />
+        {/* <img src={item.images[0]} alt="" /> */}
       </Link>
       <div className="textContent">
         <Link to={`/${item.id}`} className="title">{item.title}</Link>

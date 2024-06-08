@@ -5,29 +5,31 @@ import { singlePostData, userData } from "../../lib/dummydata";
 import "./singlePage.scss";
 import { useLoaderData, useSearchParams, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import DOMPurify from 'dompurify';
+
 function SinglePage() {
-  const result = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams()
  
-const data = useLoaderData()
-if(!data.ok){
+const postData= useLoaderData()
+if(!postData.ok){
   toast.error('Failed to fetch post')
   return <Navigate to={'/'} />
 }
+console.log(postData)
 return (
     <div className="singlepage">
       <div className="left">
         <div className="wrapper">
-        <Slider images={singlePostData.images} />
+        <Slider images={postData.data.images} />
         <div className="post_content">
           <div className="info">
-          <h1>{singlePostData.title}</h1>
+          <h1>{postData.data.title}</h1>
             <div className="address">
               <img src="/pin.png" alt="" />
-              {singlePostData.address}
+              {postData.data.address}
             </div>
             <div className="price">
-              $ {singlePostData.price}
+              $ {postData.data.price}
             </div>
           </div>
           <div className="user">
@@ -35,10 +37,7 @@ return (
             <div className="name">{userData.name}</div>
           </div>
         </div>
-        <div className="desc">
-        Future alike hill pull picture swim magic chain seed engineer nest outer raise bound easy poetry gain loud weigh me recognize farmer bare danger. actually put square leg vessels earth engine matter key cup indeed body film century shut place environment were stage vertical roof bottom lady function breeze darkness beside tin view local breathe carbon swam declared magnet escape has from pile apart route coffee storm someone hold space use ahead sheep jungle closely natural attached part top grain your grade trade corn salmon trouble new bend most teacher range anybody every seat fifteen eventually
-
-        </div>
+        <div className="desc" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(postData.data.PostDetail.desc)}}></div>
         </div>
 
       </div>
@@ -50,21 +49,21 @@ return (
               <img src="/utility.png" alt="" />
               <div className="box_content">
                 <h3>Utilities</h3>
-                <p>Renter is responsible</p>
+                <p>{postData.data.PostDetail.utilities}</p>
               </div>
             </div>
             <div className="box">
               <img src="/pet.png" alt="" />
               <div className="box_content">
                 <h3>Pet Policy</h3>
-                <p>Pets Allowed</p>
+                <p>Pets {postData.data.PostDetail.pet}</p>
               </div>
             </div>
             <div className="box">
               <img src="/fee.png" alt="" />
               <div className="box_content">
                 <h3>Property Fees</h3>
-                <p>Must have 3x the rent in total household income</p>
+                <p>{postData.data.PostDetail.income}</p>
               </div>
             </div>
           </div>
@@ -72,15 +71,15 @@ return (
           <div className="sizes">
             <div className="size">
               <img src="/size.png" alt="" />
-              <span>80 sqft</span>
+              <span>{postData.data.PostDetail.size} sqft</span>
             </div>
             <div className="size">
               <img src="/bed.png" alt="" />
-              <span>2 beds</span>
+              <span>{postData.data.bedroom} beds</span>
             </div>
             <div className="size">
               <img src="/bath.png" alt="" />
-              <span>1 bathroom</span>
+              <span>{postData.data.bathroom} bathroom</span>
             </div>
           </div>
           <h2 className="title">Nearby Places</h2>
@@ -89,27 +88,27 @@ return (
               <img src="/school.png" alt="" />
               <div className="box_content">
                 <h3>School</h3>
-                <p>250m away</p>
+                <p>{postData.data.PostDetail.school}m away</p>
               </div>
             </div>
             <div className="box">
               <img src="/pet.png" alt="" />
               <div className="box_content">
                 <h3>Bus Stop</h3>
-                <p>100m away</p>
+                <p>{postData.data.PostDetail.bus}m away</p>
               </div>
             </div>
             <div className="box">
               <img src="/fee.png" alt="" />
               <div className="box_content">
                 <h3>Restaurant</h3>
-                <p>200m away</p>
+                <p>{postData.data.PostDetail.restaurant}m away</p>
               </div>
             </div>
           </div>
           <h2 className="title">Location</h2>
           <div className="map_container">
-            <Map items={[singlePostData]} />
+            <Map items={[postData.data]} />
           </div>
           <div className="buttons">
             <button>

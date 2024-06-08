@@ -7,11 +7,11 @@ export const ListPageLoader = async ({ request, params }) => {
   // const url = new URL(request.url)
   // console.log(url.search)
   try {
-    const res = await axiosClient.get("/posts?" + query);
-    console.log(res.data)
+    const res =  axiosClient.get("/posts?" + query);
+    // console.log(res.data)
     return {
       ok: true,
-      data: res.data,
+      postResolve: res,
     };
   } catch (err) {
     return {
