@@ -33,8 +33,8 @@ return (
             </div>
           </div>
           <div className="user">
-            <img src={userData.img} alt="" />
-            <div className="name">{userData.name}</div>
+            <img src={postData.data.user.avatar || 'noavatar.jpg'} alt="" />
+            <div className="name">{postData.data.user.username}</div>
           </div>
         </div>
         <div className="desc" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(postData.data.PostDetail.desc)}}></div>

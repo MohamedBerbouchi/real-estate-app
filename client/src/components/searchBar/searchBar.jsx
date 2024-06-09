@@ -6,7 +6,7 @@ function SearchBar() {
         type: 'buy',
          location: '',
          minPrice: 0,
-         MaxPrice: 1000000,
+         MaxPrice: '',
     })
 
     const handleChange = (e)=>{

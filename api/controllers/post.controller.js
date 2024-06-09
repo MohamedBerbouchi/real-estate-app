@@ -23,7 +23,8 @@ async function getPosts(req, res) {
       },
     });
     console.log(posts)
-    res.status(200).json(posts);
+
+      res.status(200).json(posts);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "failed to get posts" });
@@ -39,11 +40,20 @@ async function getPostById(req, res) {
 
     const posts = await prisma.post.findUnique({
       where: { id },
-      include: { PostDetail: true },
-    });
+      include: {
+         PostDetail: true,
+         user: {
+          select: {
+            username: true,
+            avatar: true,
+          },
+        } 
+    }})
+
     console.log(posts)
-    
+
     res.status(200).json(posts);
+
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "failed to get Post" });

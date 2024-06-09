@@ -28,6 +28,10 @@ function ListPage() {
   const handleSearchClick = () => {
     setSearchParams(query);
   };
+ async function t(){
+  console.log(await data)
+ }
+ t()
   return (
     <div className="listpage">
       <div className="content">
@@ -43,12 +47,13 @@ function ListPage() {
                 placeholder="City Location"
                 name="location"
                 onChange={handleChange}
+                value={query.location}
               />
             </div>
             <div className="bottom">
               <div className="item">
                 <label htmlFor="type">Type</label>
-                <select name="type" id="type" onChange={handleChange}>
+                <select name="type" id="type" onChange={handleChange} defaultValue={query.type}>
                   <option value="">any</option>
                   <option value="buy">Buy</option>
                   <option value="rent">Rent</option>
@@ -56,7 +61,7 @@ function ListPage() {
               </div>
               <div className="item">
                 <label htmlFor="Property">Property</label>
-                <select name="property" id="Property" onChange={handleChange}>
+                <select name="property" id="Property" onChange={handleChange} defaultValue={query.property}>
                   <option value="">any</option>
                   <option value="apartment">Apartment</option>
                   <option value="house">House</option>
@@ -72,6 +77,7 @@ function ListPage() {
                   type="number"
                   placeholder="any"
                   onChange={handleChange}
+                  value={query.minPrice}
                 />
               </div>
               <div className="item">
@@ -81,6 +87,7 @@ function ListPage() {
                   type="number"
                   placeholder="any"
                   onChange={handleChange}
+                  value={query.MaxPrice}
                 />
               </div>
               <div className="item">
@@ -90,6 +97,7 @@ function ListPage() {
                   type="text"
                   placeholder="any"
                   onChange={handleChange}
+                  value={query.bedroom}
                 />
               </div>
               <button onClick={handleSearchClick} style={{ cursor: "pointer" }}>
