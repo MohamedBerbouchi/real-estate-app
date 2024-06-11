@@ -9,21 +9,29 @@ import { toast } from "react-toastify";
 import DOMPurify from "dompurify";
 
 function SinglePage() {
-  const [postSaved, setPostSaved] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const postData = useLoaderData();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [isSaved, setIsSaved] = useState(postData.data.isSaved);
+
   if (!postData.ok) {
     toast.error("Failed to fetch post");
     return <Navigate to={"/"} />;
   }
   const toggleSavePost = async () => {
-    setPostSaved((prev) => !prev);
-   const savedPost =  await axiosClient('/users/savePost',{
-      postId : postData.data.id
-    })
+    setIsSaved((prev) => !prev);
+    try{
+      const savedPost =  await axiosClient.post('/users/savePost',{
+        postId : postData.data.id
+      })
+      console.log(savedPost)
+    }catch(err){
+      console.log(err)
+      setIsSaved(prev=> !prev)
+      toast.error('something wen wrong ⚠️')
+    }
   };
   console.log(postData)
+  console.log(isSaved)
   return (
     <div className="singlepage">
       <div className="left">
@@ -39,8 +47,8 @@ function SinglePage() {
               <div className="price">$ {postData.data.price}</div>
             </div>
             <div className="user">
-              <img src={postData.data.user.avatar || "noavatar.jpg"} alt="" />
-              <div className="name">{postData.data.user.username}</div>
+              <img src={postData.data?.user?.avatar  || "noavatar.jpg"} alt="" />
+              <div className="name">{postData.data?.user?.username}</div>
             </div>
           </div>
           <div
@@ -125,9 +133,9 @@ function SinglePage() {
               <img src="/chat.png" alt="" />
               <span>Send a Message</span>
             </button>
-            <button onClick={toggleSavePost} className={postSaved ? "saved" : ''}>
+            <button onClick={toggleSavePost} className={isSaved ? "saved" : ''}>
               <img src="/save.png" alt="" />
-              <span>{postSaved ? 'place saved' :'save the place'}</span>
+              <span>{isSaved ? 'place saved' :'save the place'}</span>
             </button>
           </div>
         </div>

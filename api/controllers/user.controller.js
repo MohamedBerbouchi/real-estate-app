@@ -9,6 +9,7 @@ async function getUsers(req, res) {
     res.status(500).json({ message: "failed to get users" });
   }
 }
+
 async function getUserById(req, res) {
   try {
     const id = req.params.id;
@@ -89,9 +90,41 @@ async function deleteUser(req, res) {
 
 
 async function savePost(req, res){
-  const postId = body.postId;
+  const postId = req.body.postId;
   const tokenUserID = req.userId
 
-  prisma.
+  try{
+    const post = await prisma.savedPost.findUnique({
+      where: {
+        postId_userId:{
+          postId : postId,
+          userId : tokenUserID
+        }
+      } 
+    })
+    console.log(post)
+    if(post){
+      await prisma.savedPost.delete({
+        where: {
+          postId_userId:{
+            postId : postId,
+            userId : tokenUserID
+          }
+        } 
+      })
+      return  res.status(200).json({isSaved: false})
+
+    }
+     await prisma.SavedPost.create({
+      data:{
+        postId : postId,
+        userId : tokenUserID
+      }
+    })
+    return res.status(200).json({isSaved: true})
+  }catch(err){
+    console.log(err)
+    res.status(500).json({ message: "failed to save the post" })
+  }
 }
-export default { getUsers, getUserById, addUser, deleteUser, updateUser };
+export default { getUsers, getUserById, addUser, deleteUser, updateUser,savePost };

@@ -1,6 +1,7 @@
 import prisma from "../lib/prisma.js";
 import bcrypt from "bcrypt";
-import {ObjectId} from 'mongodb'
+import jwt from "jsonwebtoken";
+import { ObjectId } from "mongodb";
 async function getPosts(req, res) {
   const { bedroom, property, type, location, minPrice, MaxPrice } = req.query;
   try {
@@ -11,8 +12,8 @@ async function getPosts(req, res) {
         property: property || undefined,
         type: type || undefined,
         city: {
-          contains: location ?  location.trim().toLowerCase() : undefined,
-          mode: 'insensitive'
+          contains: location ? location.trim().toLowerCase() : undefined,
+          mode: "insensitive",
         },
         ...(minPrice && { price: { gte: parseInt(minPrice) } }),
         ...(MaxPrice && { price: { lte: parseInt(MaxPrice) } }),
@@ -22,9 +23,9 @@ async function getPosts(req, res) {
         //  }
       },
     });
-    console.log(posts)
+    console.log(posts);
 
-      res.status(200).json(posts);
+    res.status(200).json(posts);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "failed to get posts" });
@@ -32,8 +33,8 @@ async function getPosts(req, res) {
 }
 async function getPostById(req, res) {
   try {
-    const id = req.params.id; 
-    console.log(typeof id)
+    const id = req.params.id;
+    console.log(typeof id);
     if (!ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid ID format" });
     }
@@ -41,18 +42,35 @@ async function getPostById(req, res) {
     const posts = await prisma.post.findUnique({
       where: { id },
       include: {
-         PostDetail: true,
-         user: {
+        PostDetail: true,
+        user: {
           select: {
             username: true,
             avatar: true,
           },
-        } 
-    }})
+        },
+      },
+    });
 
-    console.log(posts)
+    const token = req.cookies.token;
+    if (token) {
+      jwt.verify(token, process.env.JWT_SECRET, async (err, payload) => {
+        if (!err) {
+          const isSaved = await prisma.SavedPost.findUnique({
+            where: {
+              postId_userId: {
+                postId: id,
+                userId: payload.id,
+              },
+            },
+          });
+          res.status(200).json({...posts, isSaved: !!isSaved});
+        }  
+      });
+    }else{
 
-    res.status(200).json(posts);
+      res.status(200).json({...posts, isSaved: false});
+    }
 
   } catch (err) {
     console.log(err);
