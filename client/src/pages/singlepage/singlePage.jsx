@@ -1,45 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import Map from "../../components/map/map";
 import Slider from "../../components/slider/slider";
 import { singlePostData, userData } from "../../lib/dummydata";
+import axiosClient from "../../lib/axiosClient";
 import "./singlePage.scss";
 import { useLoaderData, useSearchParams, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 
 function SinglePage() {
-  const [searchParams, setSearchParams] = useSearchParams()
- 
-const postData= useLoaderData()
-if(!postData.ok){
-  toast.error('Failed to fetch post')
-  return <Navigate to={'/'} />
-}
-console.log(postData)
-return (
+  const [postSaved, setPostSaved] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const postData = useLoaderData();
+  if (!postData.ok) {
+    toast.error("Failed to fetch post");
+    return <Navigate to={"/"} />;
+  }
+  const toggleSavePost = async () => {
+    setPostSaved((prev) => !prev);
+   const savedPost =  await axiosClient('/users/savePost',{
+      postId : postData.data.id
+    })
+  };
+  console.log(postData)
+  return (
     <div className="singlepage">
       <div className="left">
         <div className="wrapper">
-        <Slider images={postData.data.images} />
-        <div className="post_content">
-          <div className="info">
-          <h1>{postData.data.title}</h1>
-            <div className="address">
-              <img src="/pin.png" alt="" />
-              {postData.data.address}
+          <Slider images={postData.data.images} />
+          <div className="post_content">
+            <div className="info">
+              <h1>{postData.data.title}</h1>
+              <div className="address">
+                <img src="/pin.png" alt="" />
+                {postData.data.address}
+              </div>
+              <div className="price">$ {postData.data.price}</div>
             </div>
-            <div className="price">
-              $ {postData.data.price}
+            <div className="user">
+              <img src={postData.data.user.avatar || "noavatar.jpg"} alt="" />
+              <div className="name">{postData.data.user.username}</div>
             </div>
           </div>
-          <div className="user">
-            <img src={postData.data.user.avatar || 'noavatar.jpg'} alt="" />
-            <div className="name">{postData.data.user.username}</div>
-          </div>
+          <div
+            className="desc"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(postData.data.PostDetail.desc),
+            }}
+          ></div>
         </div>
-        <div className="desc" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(postData.data.PostDetail.desc)}}></div>
-        </div>
-
       </div>
       <div className="right">
         <div className="wrapper">
@@ -115,9 +125,9 @@ return (
               <img src="/chat.png" alt="" />
               <span>Send a Message</span>
             </button>
-            <button>
+            <button onClick={toggleSavePost} className={postSaved ? "saved" : ''}>
               <img src="/save.png" alt="" />
-              <span>save the place</span>
+              <span>{postSaved ? 'place saved' :'save the place'}</span>
             </button>
           </div>
         </div>

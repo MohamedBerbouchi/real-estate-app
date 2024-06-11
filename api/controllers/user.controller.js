@@ -87,4 +87,11 @@ async function deleteUser(req, res) {
   }
 }
 
+
+async function savePost(req, res){
+  const postId = body.postId;
+  const tokenUserID = req.userId
+
+  prisma.
+}
 export default { getUsers, getUserById, addUser, deleteUser, updateUser };

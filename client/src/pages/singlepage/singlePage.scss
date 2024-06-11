@@ -203,6 +203,10 @@
           align-items: center;
           border-radius: 5px;
           gap: 10px;
+          &.saved{
+            background-color: var(--yellow);
+            opacity: .8;
+          }
           img {
             width: 25px;
             height: 25px;
@@ -212,6 +216,7 @@
           &:hover {
             transform: scale(1.05);
           }
+         
         }
       }
     }
