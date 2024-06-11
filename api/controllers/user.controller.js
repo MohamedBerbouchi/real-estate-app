@@ -127,4 +127,30 @@ async function savePost(req, res){
     res.status(500).json({ message: "failed to save the post" })
   }
 }
-export default { getUsers, getUserById, addUser, deleteUser, updateUser,savePost };
+
+async function profilePosts(req, res) {
+  try {
+    const tokenUser = req.userId
+
+    const profilePosts = await prisma.user.findUnique({
+    
+      where:{
+        id: tokenUser
+      },
+      select: {
+        username: true,
+        savedPosts:{  // Include savedPosts
+          select :{
+            post: true
+          }
+        },
+        post: true, // Include posts
+      }
+    });
+    res.status(200).json({savedPosts: profilePosts.savedPosts.map(i => ({...i.post})), userPosts: profilePosts.post});
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "failed to get profile post" });
+  }
+}
+export default { getUsers, getUserById, addUser, deleteUser, updateUser,savePost,profilePosts };

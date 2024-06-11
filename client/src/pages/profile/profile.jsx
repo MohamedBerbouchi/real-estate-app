@@ -4,7 +4,7 @@ import React, { startTransition, useContext, useState, useTransition } from "rea
 import Chat from "../../components/chat/chat";
 import List from "../../components/list/list";
 import { userData } from "../../lib/dummydata";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import axiosClient from "../../lib/axiosClient";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -12,7 +12,7 @@ function Profile() {
   const [openChat, setOpenChat] = useState(false);
   const [isPending, startTranstaction] =  useTransition()
   const {user} = useContext(AuthContext)
-
+  const user_posts_savedPosts = useLoaderData()
   const navigate = useNavigate("/");
 const { setUser} = useContext(AuthContext)
   async function handleSignOut() {
@@ -28,7 +28,8 @@ const { setUser} = useContext(AuthContext)
       console.log(err);
     }
   }
-
+ console.log(user_posts_savedPosts.data.savedPosts)
+ console.log(user_posts_savedPosts.data.userPosts)
   return (
     <div className="profilePage">
       <div className="left">
@@ -61,12 +62,13 @@ const { setUser} = useContext(AuthContext)
             <button>create new post</button>
             </Link>
           </div>
-          {/* <List /> */}
+          <List items={user_posts_savedPosts.data.userPosts} />
 
           <div className="title">
             <h1>Saved List</h1>
           </div>
-          {/* <List /> */}
+          <List items={user_posts_savedPosts.data.savedPosts} />
+
         </div>
       </div>
 

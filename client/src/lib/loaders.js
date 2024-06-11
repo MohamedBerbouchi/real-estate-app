@@ -38,3 +38,20 @@ export const SinglePageLoader = async ({ request, params }) => {
     };
   }
 };
+export const ProfilePageLoader = async ({ request, params }) => {
+  try {
+    const res = await axiosClient.get("/users/profilePosts");
+    console.log(res);
+
+    return {
+      ok: true,
+      data: res.data,
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      ok: false,
+      data: [],
+    };
+  }
+};

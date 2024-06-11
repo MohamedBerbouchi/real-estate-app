@@ -13,7 +13,7 @@ import AuthLayout from "./pages/layout/authLayout";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { ListPageLoader, SinglePageLoader } from "./lib/loaders";
+import { ListPageLoader, ProfilePageLoader, SinglePageLoader } from "./lib/loaders";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -58,6 +58,7 @@ function App() {
         {
           path: "profile",
           element: <Profile />,
+          loader: ProfilePageLoader
         },
         {
           path: "profile/update",
