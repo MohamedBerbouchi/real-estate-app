@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Homepage from "./pages/home/homepage";
 import ListPage from "./pages/list/listpage";
@@ -12,8 +12,13 @@ import Layout from "./pages/layout/layout";
 import AuthLayout from "./pages/layout/authLayout";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { ListPageLoader, ProfilePageLoader, SinglePageLoader } from "./lib/loaders";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  ListPageLoader,
+  ProfilePageLoader,
+  SinglePageLoader,
+} from "./lib/loaders";
+import { withSuspense } from "./lib/suspense";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -30,7 +35,7 @@ function App() {
         {
           path: "list",
           element: <ListPage />,
-          loader: ListPageLoader
+          loader: ListPageLoader,
         },
         {
           path: "login",
@@ -58,7 +63,7 @@ function App() {
         {
           path: "profile",
           element: <Profile />,
-          loader: ProfilePageLoader
+          loader: ProfilePageLoader,
         },
         {
           path: "profile/update",
@@ -77,4 +82,3 @@ function App() {
 }
 
 export default App;
- 

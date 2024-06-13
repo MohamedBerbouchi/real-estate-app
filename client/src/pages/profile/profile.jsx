@@ -4,7 +4,7 @@ import React, { startTransition, useContext, useState, useTransition } from "rea
 import Chat from "../../components/chat/chat";
 import List from "../../components/list/list";
 import { userData } from "../../lib/dummydata";
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import axiosClient from "../../lib/axiosClient";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -28,8 +28,9 @@ const { setUser} = useContext(AuthContext)
       console.log(err);
     }
   }
- console.log(user_posts_savedPosts.data.savedPosts)
- console.log(user_posts_savedPosts.data.userPosts)
+ const { state } = useNavigation();
+console.log(state)
+console.log(user_posts_savedPosts)
   return (
     <div className="profilePage">
       <div className="left">

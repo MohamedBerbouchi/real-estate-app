@@ -147,7 +147,7 @@ async function profilePosts(req, res) {
         post: true, // Include posts
       }
     });
-    res.status(200).json({savedPosts: profilePosts.savedPosts.map(i => ({...i.post})), userPosts: profilePosts.post});
+    res.status(200).json({savedPosts: profilePosts.savedPosts.map(p => p.post), userPosts: profilePosts.post});
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "failed to get profile post" });
