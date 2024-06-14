@@ -46,16 +46,7 @@ model Post {
   savedPosts SavedPost[]
 }
 
-model User {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  email      String      @unique
-  username   String      @unique
-  password   String
-  avatar     String?
-  cratedAt   DateTime    @default(now())
-  post       Post[]
-  savedPosts SavedPost[]
-}
+
 
 model SavedPost {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId()
@@ -80,4 +71,36 @@ model PostDetail {
   restaurant Int?
   Post       Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId     String  @unique @db.ObjectId
+}
+model User {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  email      String      @unique
+  username   String      @unique
+  password   String
+  avatar     String?
+  post       Post[]
+  savedPosts SavedPost[]
+  chatIDs String[]  @db.ObjectId
+  chats Chat[] @relation(fields: [chatIDs], references: [id])
+  cratedAt   DateTime    @default(now())
+}
+
+model Chat {
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  usersIDs String[]  @db.ObjectId
+  users User[] @relation(fields: [usersIDs], references: [id])
+  seenBy String[]  @db.ObjectId
+  lastMessage String?
+  cratedAt DateTime  @default(now())
+  messages Message[]
+}
+
+model Message {
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  text String 
+  chatId String @db.ObjectId
+  chat Chat @relation(fields: [chatId], references: [id])
+  userId String
+  cratedAt DateTime  @default(now())
+
 }
