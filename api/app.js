@@ -4,6 +4,8 @@ import AuthRouter from './routes/auth.route.js'
 import TestRoute from './routes/test.route.js';
 import UserRouter from './routes/user.router.js';
 import PostRouter from './routes/post.router.js';
+import chatRouter from './routes/chat.route.js'; 
+import messageRouter from './routes/message.route.js'; 
 import cors from 'cors'
 const app = express()
 
@@ -20,3 +22,5 @@ app.use('/api', AuthRouter)
 app.use('/api/test', TestRoute)
 app.use('/api/users', UserRouter)
 app.use('/api/posts', PostRouter)
+app.use('/api/chats', chatRouter)
+app.use('/api/message', messageRouter)
