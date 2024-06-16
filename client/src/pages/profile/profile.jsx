@@ -3,6 +3,7 @@ import "./profile.scss";
 import React, {
   startTransition,
   useContext,
+  useEffect,
   useState,
   useTransition,
 } from "react";
@@ -14,13 +15,15 @@ import {
   useLoaderData,
   useNavigate,
   useNavigation,
+  useSearchParams,
 } from "react-router-dom";
 import axiosClient from "../../lib/axiosClient";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 
 function Profile() {
-  const [chat, setChat] = useState(false);
+  const [chat, setChat] = useState(null);
+  const [searchParams] = useSearchParams()
   const [isPending, startTranstaction] = useTransition();
   const { user } = useContext(AuthContext);
   const profile_data = useLoaderData();
@@ -39,7 +42,6 @@ function Profile() {
     }
   }
   const { state } = useNavigation();
-  console.log(state);
   const handleOpenChat = async (chat) => {
     console.log(chat);
     const reciever = chat.users.find((u) => u.id !== user.id);
@@ -53,6 +55,28 @@ function Profile() {
       setChat(null);
     }
   };
+  console.log(user)
+  useEffect(()=>{
+   
+    
+    if(searchParams.get('chat')){
+
+      // get chat
+      getChat(searchParams.get('chat')) 
+    }
+  },[])
+
+  async function getChat(id){
+    console.log(id)
+    try {
+      const chatD = await axiosClient.get("/chats/"+id);
+      console.log(chatD)
+      setChat(chatD.data)
+    } catch (err) {
+      console.log(err)
+
+    }
+  } 
   return (
     <div className="profilePage">
       <div className="left">
@@ -110,14 +134,15 @@ function Profile() {
             <h2>Messages</h2>
             {profile_data.chatsData.map((chat) => {
               const reciever = chat.users.find((u) => u.id !== user.id);
+              console.log(reciever)
               return (
                 <div className="message" onClick={() => handleOpenChat(chat)}>
                   <img
-                    src={reciever.avatar || "noavatar.jpg"}
+                    src={reciever?.avatar || "noavatar.jpg"}
                     alt=""
                     className="user_img"
                   />
-                  <div className="username">{reciever.username}</div>
+                  <div className="username">{reciever?.username}</div>
                   <p className="msg">Lorem ipsum dolor sit amet...</p>
                 </div>
               );

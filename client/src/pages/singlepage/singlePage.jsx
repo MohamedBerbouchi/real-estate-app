@@ -4,10 +4,14 @@ import Slider from "../../components/slider/slider";
 import { singlePostData, userData } from "../../lib/dummydata";
 import axiosClient from "../../lib/axiosClient";
 import "./singlePage.scss";
-import { useLoaderData, useSearchParams, Navigate } from "react-router-dom";
+import {
+  useLoaderData,
+  useSearchParams,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import { toast } from "react-toastify";
 import DOMPurify from "dompurify";
-
 function SinglePage() {
   const postData = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,19 +23,33 @@ function SinglePage() {
   }
   const toggleSavePost = async () => {
     setIsSaved((prev) => !prev);
-    try{
-      const savedPost =  await axiosClient.post('/users/savePost',{
-        postId : postData.data.id
-      })
-      console.log(savedPost)
-    }catch(err){
-      console.log(err)
-      setIsSaved(prev=> !prev)
-      toast.error('something wen wrong ⚠️')
+    try {
+      const savedPost = await axiosClient.post("/users/savePost", {
+        postId: postData.data.id,
+      });
+      console.log(savedPost);
+    } catch (err) {
+      console.log(err);
+      setIsSaved((prev) => !prev);
+      toast.error("something wen wrong ⚠️");
     }
   };
-  console.log(postData)
-  console.log(isSaved)
+  console.log(postData);
+  console.log(isSaved);
+  console.log(postData.data.userId);
+  const navigate = useNavigate();
+  const createChat = async () => {
+    try {
+      const chat = await axiosClient.post("/chats", {
+        receiverId: postData.data.userId,
+      });
+
+      navigate(`/profile?chat=${chat.data.id}`);
+    } catch (err) {
+      console.log(err)
+
+    }
+  };
   return (
     <div className="singlepage">
       <div className="left">
@@ -47,7 +65,7 @@ function SinglePage() {
               <div className="price">$ {postData.data.price}</div>
             </div>
             <div className="user">
-              <img src={postData.data?.user?.avatar  || "noavatar.jpg"} alt="" />
+              <img src={postData.data?.user?.avatar || "noavatar.jpg"} alt="" />
               <div className="name">{postData.data?.user?.username}</div>
             </div>
           </div>
@@ -129,13 +147,13 @@ function SinglePage() {
             <Map items={[postData.data]} />
           </div>
           <div className="buttons">
-            <button>
+            <button onClick={createChat}>
               <img src="/chat.png" alt="" />
               <span>Send a Message</span>
             </button>
-            <button onClick={toggleSavePost} className={isSaved ? "saved" : ''}>
+            <button onClick={toggleSavePost} className={isSaved ? "saved" : ""}>
               <img src="/save.png" alt="" />
-              <span>{isSaved ? 'place saved' :'save the place'}</span>
+              <span>{isSaved ? "place saved" : "save the place"}</span>
             </button>
           </div>
         </div>

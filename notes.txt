@@ -64,8 +64,9 @@ add post 👍
 single page react-router-dom  (loader) 👍
 list & home search -for loader react router dom defer 👍
 saved post 👍
-proviles postes and saved post routes
-chat model AND message (routes)
-chat crud
+proviles postes and saved post routes👍
+chat model AND message (routes) 👍
+chat crud 👍
+seen by 
 socket.io
 notification

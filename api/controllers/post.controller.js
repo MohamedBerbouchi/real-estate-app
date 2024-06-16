@@ -45,6 +45,7 @@ async function getPostById(req, res) {
         PostDetail: true,
         user: {
           select: {
+            id:true,
             username: true,
             avatar: true,
           },
