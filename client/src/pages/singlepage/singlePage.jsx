@@ -3,6 +3,7 @@ import Map from "../../components/map/map";
 import Slider from "../../components/slider/slider";
 import { singlePostData, userData } from "../../lib/dummydata";
 import axiosClient from "../../lib/axiosClient";
+import {useUser} from '../../context/AuthContext'
 import "./singlePage.scss";
 import {
   useLoaderData,
@@ -14,6 +15,7 @@ import { toast } from "react-toastify";
 import DOMPurify from "dompurify";
 function SinglePage() {
   const postData = useLoaderData();
+  const {user} = useUser()
   const [searchParams, setSearchParams] = useSearchParams();
   const [isSaved, setIsSaved] = useState(postData.data.isSaved);
 
@@ -38,7 +40,12 @@ function SinglePage() {
   console.log(isSaved);
   console.log(postData.data.userId);
   const navigate = useNavigate();
+  console.log('user',postData.data.user.id)
+  console.log('user',user)
   const createChat = async () => {
+    // postData.data?.user
+    if(!user) return
+    if(postData.data.user.id === user.id) return
     try {
       const chat = await axiosClient.post("/chats", {
         receiverId: postData.data.userId,
@@ -147,10 +154,10 @@ function SinglePage() {
             <Map items={[postData.data]} />
           </div>
           <div className="buttons">
-            <button onClick={createChat}>
+           {postData.data.user.id !== user.id && <button onClick={createChat}>
               <img src="/chat.png" alt="" />
               <span>Send a Message</span>
-            </button>
+            </button>}
             <button onClick={toggleSavePost} className={isSaved ? "saved" : ""}>
               <img src="/save.png" alt="" />
               <span>{isSaved ? "place saved" : "save the place"}</span>

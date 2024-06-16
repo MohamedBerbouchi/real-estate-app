@@ -153,4 +153,30 @@ async function profilePosts(req, res) {
     res.status(500).json({ message: "failed to get profile post" });
   }
 }
-export default { getUsers, getUserById, addUser, deleteUser, updateUser,savePost,profilePosts };
+
+
+// notification route 
+// get count of user chat that not seen by user 
+
+async function notification(req, res) {
+  try {
+    const tokenUser = req.userId
+    const numberNotification = await prisma.chat.count({
+      where:{
+        usersIDs:{
+          hasSome:[tokenUser]
+        },
+        NOT:{
+          seenBy:{
+            hasSome: [tokenUser]
+          }
+        }
+      },
+    });
+    res.status(200).json(numberNotification);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "failed to get notification" });
+  }
+}
+export default { getUsers, getUserById, addUser, deleteUser, updateUser,savePost,profilePosts,notification };

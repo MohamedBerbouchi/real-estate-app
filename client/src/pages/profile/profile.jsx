@@ -135,15 +135,16 @@ function Profile() {
             {profile_data.chatsData.map((chat) => {
               const reciever = chat.users.find((u) => u.id !== user.id);
               console.log(reciever)
+              const seenBy = chat.seenBy.includes(user.id)
               return (
-                <div className="message" onClick={() => handleOpenChat(chat)}>
+                <div className={`message ${seenBy ? '' : 'not-seen'}`} onClick={() => handleOpenChat(chat)}>
                   <img
                     src={reciever?.avatar || "noavatar.jpg"}
                     alt=""
                     className="user_img"
                   />
                   <div className="username">{reciever?.username}</div>
-                  <p className="msg">Lorem ipsum dolor sit amet...</p>
+                  <p className="msg">{chat.lastMessage}</p>
                 </div>
               );
             })}

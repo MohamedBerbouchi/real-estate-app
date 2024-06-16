@@ -38,11 +38,25 @@ async function getChatById(req, res) {
         usersIDs: { hasSome: [userId] },
       },
       include: {
-        messages: true,
+        messages: {
+          orderBy: {
+            cratedAt: "asc",
+          },
+        },
       },
     });
     // update seen by
-
+    await prisma.chat.update({
+      where:{
+        id: chatId,
+        usersIDs: { hasSome: [userId] },
+      },
+      data:{
+        seenBy: {
+          push: [userId]
+        }
+      }
+    })
     res.status(200).json(chat);
   } catch (err) {
     console.log(err);
@@ -66,7 +80,7 @@ async function addChat(req, res) {
     const chat = await prisma.chat.create({
       data: {
         usersIDs: [userId, receiverId],
-        seenBy: [],
+        seenBy: [userId],
         lastMessage: "",
       },
     });
@@ -103,7 +117,8 @@ async function readChat(req, res) {
       },
       data: {
         seenBy: {
-          push: userId,
+          set: [tokenUserId],
+          // push: userId,
         },
       },
     });

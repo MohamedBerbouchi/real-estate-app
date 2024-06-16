@@ -11,5 +11,6 @@ router.post('/', UserController.addUser);
 router.put('/:id',verifyAuth, UserController.updateUser);
 router.delete('/:id',verifyAuth, UserController.deleteUser);
 router.post('/savePost',verifyAuth, UserController.savePost);
+router.get('/notification/get-number',verifyAuth, UserController.notification);
 
 export default router;

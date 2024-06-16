@@ -149,6 +149,7 @@ height: 100%;
         @include md{
          flex: none;
         }
+       
         .message{
           cursor: pointer;
             img{
@@ -167,6 +168,9 @@ height: 100%;
                .username{
                 font-weight: bold;
                }
+        }
+        .not-seen{
+          background-color: rgb(208, 204, 204);
         }
     }
     .chat_container{
