@@ -67,6 +67,7 @@ saved post 👍
 proviles postes and saved post routes👍
 chat model AND message (routes) 👍
 chat crud 👍
-seen by 
+seen by 👍
+notif 👍 <problem zuzstand>
 socket.io
 notification

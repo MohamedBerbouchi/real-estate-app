@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userData } from "../../lib/dummydata";
 import "./nav.scss";
 import axiosClient from "../../lib/axiosClient";
@@ -7,8 +7,17 @@ import { AuthContext } from "../../context/AuthContext";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-   const {user} = useContext(AuthContext)
-
+   const {user,  } = useContext(AuthContext)
+   const [notificationNumber, setNotificationNumber] = useState('')
+   const location = useLocation()
+useEffect(()=>{
+  async function getNotificationNumber(){
+      const res = await axiosClient.get('/users/notification/get-number')
+      console.log(res.data)
+      setNotificationNumber(res.data)
+  }
+  getNotificationNumber()
+},[location.pathname])
   return (
     <nav>
       <div className="left">
@@ -51,7 +60,7 @@ function Navbar() {
         <h2 className="username">{user.username}</h2>
         <div className="button">
           <Link to='/profile' className="profile_link">Profile</Link>
-          <span>3</span>
+          <span>{notificationNumber}</span>
         </div>
         </div>}
         <div className={open ? "mobile_menu active" : "mobile_menu"}>
