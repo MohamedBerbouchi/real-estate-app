@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./chat.scss";
+import { useUser } from "../../context/AuthContext";
+import { format } from "timeago.js";
+import axiosClient from "../../lib/axiosClient";
 
 function Chat({setChat, chat}) {
+  const {user} = useUser()
+  const lastMessageRef = useRef()
+  const [message, setMessage] = useState('')
   console.log(chat)
-  
+
+  const sendMassage =async ()=>{
+    if (!message) return;
+      try{
+        console.log(chat.id)
+      const res =  await axiosClient.post(`/message/${chat.id}`,{
+        text: message
+       })
+       setMessage('')
+       setChat({...chat, messages:[...chat.messages, res.data]})
+
+      }catch(err){
+        console.log(err)
+      }
+  }
+
+  const handleChange = (e)=>{
+    setMessage(e.target.value)
+  }
+  useEffect(()=>{
+    if(lastMessageRef.current){
+      lastMessageRef.current.scrollIntoView()
+    }
+  },[chat])
   return (
     <div className="chat">
       <div className="head">
@@ -19,22 +48,18 @@ function Chat({setChat, chat}) {
       <div className="body">
         {chat.messages.map(msg=>{
           return (
-            <div className="message">
-            <p>Lorem ipsum dolor sit amet</p>
-            <span className="date"> 1 hour ago</span>
+            <div className={`message ${msg.userId == user.id ? 'own' : ''}`}>
+            <p>{msg.text}</p>
+            <span className="date"> {format(msg.createdAt)}</span>
           </div>
           )
         })}
-       
-        <div className="message own">
-          <p>Lorem ipsum dolor sit amet</p>
-          <span className="date"> 1 hour ago</span>
-        </div>
-     
+        
+        <div ref={lastMessageRef}></div>
       </div>
       <div className="bottom">
-        <textarea cols={1} rows={1} name="" id=""></textarea>
-        <button>Send</button>
+        <textarea cols={1} rows={1} name="" id="" onChange={handleChange}></textarea>
+        <button onClick={sendMassage}>Send</button>
       </div>
     </div>
   );
