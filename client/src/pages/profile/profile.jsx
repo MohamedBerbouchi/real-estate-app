@@ -1,51 +1,77 @@
 import "./profile.scss";
 //
-import React, { startTransition, useContext, useState, useTransition } from "react";
+import React, {
+  startTransition,
+  useContext,
+  useState,
+  useTransition,
+} from "react";
 import Chat from "../../components/chat/chat";
 import List from "../../components/list/list";
 import { userData } from "../../lib/dummydata";
-import { Link, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import axiosClient from "../../lib/axiosClient";
 import { AuthContext } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 function Profile() {
-  const [openChat, setOpenChat] = useState(false);
-  const [isPending, startTranstaction] =  useTransition()
-  const {user} = useContext(AuthContext)
-  const user_posts_savedPosts = useLoaderData()
+  const [chat, setChat] = useState(false);
+  const [isPending, startTranstaction] = useTransition();
+  const { user } = useContext(AuthContext);
+  const profile_data = useLoaderData();
   const navigate = useNavigate("/");
-const { setUser} = useContext(AuthContext)
+  const { setUser } = useContext(AuthContext);
   async function handleSignOut() {
     try {
-      startTranstaction( async ()=>{
-
+      startTranstaction(async () => {
         await axiosClient.post("/auth/logout");
-      })
+      });
       // localStorage.removeItem("user");
-      setUser(null)
+      setUser(null);
       navigate("/");
     } catch (err) {
       console.log(err);
     }
   }
- const { state } = useNavigation();
-console.log(state)
-console.log(user_posts_savedPosts)
+  const { state } = useNavigation();
+  console.log(state);
+  const handleOpenChat = async (chat) => {
+    console.log(chat);
+    const reciever = chat.users.find((u) => u.id !== user.id);
+    try {
+      const getChat = await axiosClient.get(`/chats/${chat.id}`);
+      console.log(getChat);
+      setChat(getChat.data);
+    } catch (err) {
+      console.log(err);
+      toast.error('cant open chat')
+      setChat(null);
+    }
+  };
   return (
     <div className="profilePage">
       <div className="left">
         <div className="wrapper">
           <div className="title">
             <h1>User Information</h1>
-           <Link to={'/profile/update'}>
-           <button>Update Profile</button>
-           </Link>
+            <Link to={"/profile/update"}>
+              <button>Update Profile</button>
+            </Link>
           </div>
 
           <div className="user_info">
             <div className="row">
               <span>Avatar :</span>
-              <img src={user.avatar || '/noavatar.jpg'} alt="" className="user_img" />
+              <img
+                src={user.avatar || "/noavatar.jpg"}
+                alt=""
+                className="user_img"
+              />
             </div>
             <div className="row">
               <span>Username :</span>
@@ -55,21 +81,26 @@ console.log(user_posts_savedPosts)
               <span>E-mail :</span>
               <span>{user.email}</span>
             </div>
-            <button disabled={isPending} className="signout" onClick={handleSignOut}>sign out</button>
+            <button
+              disabled={isPending}
+              className="signout"
+              onClick={handleSignOut}
+            >
+              sign out
+            </button>
           </div>
           <div className="title">
             <h1>My List</h1>
-            <Link to={'/post/create'}>
-            <button>create new post</button>
+            <Link to={"/post/create"}>
+              <button>create new post</button>
             </Link>
           </div>
-          <List items={user_posts_savedPosts.data.userPosts} />
+          <List items={profile_data.postsData.userPosts} />
 
           <div className="title">
             <h1>Saved List</h1>
           </div>
-          <List items={user_posts_savedPosts.data.savedPosts} />
-
+          <List items={profile_data.postsData.savedPosts} />
         </div>
       </div>
 
@@ -77,40 +108,24 @@ console.log(user_posts_savedPosts)
         <div className="wrapper">
           <div className="messages">
             <h2>Messages</h2>
-            <div className="message" onClick={() => setOpenChat(true)}>
-              <img src={userData.img} alt="" className="user_img" />
-              <div className="username">john doe</div>
-              <p className="msg">Lorem ipsum dolor sit amet...</p>
-            </div>
-            <div className="message">
-              <img src={userData.img} alt="" className="user_img" />
-              <div className="username">john doe</div>
-              <p className="msg">Lorem ipsum dolor sit amet...</p>
-            </div>
-            <div className="message">
-              <img src={userData.img} alt="" className="user_img" />
-              <div className="username">john doe</div>
-              <p className="msg">Lorem ipsum dolor sit amet...</p>
-            </div>
-            <div className="message">
-              <img src={userData.img} alt="" className="user_img" />
-              <div className="username">john doe</div>
-              <p className="msg">Lorem ipsum dolor sit amet...</p>
-            </div>
-            <div className="message">
-              <img src={userData.img} alt="" className="user_img" />
-              <div className="username">john doe</div>
-              <p className="msg">Lorem ipsum dolor sit amet...</p>
-            </div>
-            <div className="message">
-              <img src={userData.img} alt="" className="user_img" />
-              <div className="username">john doe</div>
-              <p className="msg">Lorem ipsum dolor sit amet...</p>
-            </div>
+            {profile_data.chatsData.map((chat) => {
+              const reciever = chat.users.find((u) => u.id !== user.id);
+              return (
+                <div className="message" onClick={() => handleOpenChat(chat)}>
+                  <img
+                    src={reciever.avatar || "noavatar.jpg"}
+                    alt=""
+                    className="user_img"
+                  />
+                  <div className="username">{reciever.username}</div>
+                  <p className="msg">Lorem ipsum dolor sit amet...</p>
+                </div>
+              );
+            })}
           </div>
-          {openChat && (
+          {chat && (
             <div className="chat_container">
-              <Chat setOpenChat={setOpenChat} />
+              <Chat chat={chat} setChat={setChat}  />
             </div>
           )}
         </div>

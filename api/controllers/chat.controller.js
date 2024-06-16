@@ -10,8 +10,16 @@ async function getChats(req, res) {
         usersIDs: {
           hasSome: [userId]
         }
+      },
+      select:{
+        id:true,
+        lastMessage:true,
+        seenBy:true,
+        users:true
       }
     })
+console.log(chats)
+
     res.status(200).json(chats);
   } catch (err) {
     console.log(err);
@@ -30,8 +38,13 @@ async function getChatById(req, res) {
       where:{
         id:chatId,
         usersIDs:{hasSome:[userId]}
+      },
+      include:{
+        messages:true
       }
     })
+    // update seen by 
+
     res.status(200).json(chat);
   } catch (err) {
     console.log(err);

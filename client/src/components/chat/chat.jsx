@@ -1,7 +1,9 @@
 import React from "react";
 import "./chat.scss";
 
-function Chat({setOpenChat}) {
+function Chat({setChat, chat}) {
+  console.log(chat)
+  
   return (
     <div className="chat">
       <div className="head">
@@ -10,46 +12,25 @@ function Chat({setOpenChat}) {
           alt=""
         />
         <span>John Doe</span>
-        <div className="close" onClick={() => setOpenChat(false)}>
+        <div className="close" onClick={() => setChat(false)}>
           X
         </div>
       </div>
       <div className="body">
-        <div className="message">
-          <p>Lorem ipsum dolor sit amet</p>
-          <span className="date"> 1 hour ago</span>
-        </div>
+        {chat.messages.map(msg=>{
+          return (
+            <div className="message">
+            <p>Lorem ipsum dolor sit amet</p>
+            <span className="date"> 1 hour ago</span>
+          </div>
+          )
+        })}
+       
         <div className="message own">
           <p>Lorem ipsum dolor sit amet</p>
           <span className="date"> 1 hour ago</span>
         </div>
-        <div className="message">
-          <p>Lorem ipsum dolor sit amet</p>
-          <span className="date"> 1 hour ago</span>
-        </div>
-        <div className="message own">
-          <p>Lorem ipsum dolor sit amet</p>
-          <span className="date"> 1 hour ago</span>
-        </div>
-        <div className="message">
-          <p>Lorem ipsum dolor sit amet</p>
-          <span className="date"> 1 hour ago</span>
-        </div>
-
-        <div className="message own">
-          <p>Lorem ipsum dolor sit amet</p>
-          <span className="date"> 1 hour ago</span>
-        </div>
-
-        <div className="message own">
-          <p>Lorem ipsum dolor sit amet</p>
-          <span className="date"> 1 hour ago</span>
-        </div>
-
-        <div className="message own">
-          <p>Lorem ipsum dolor sit amet</p>
-          <span className="date"> 1 hour ago</span>
-        </div>
+     
       </div>
       <div className="bottom">
         <textarea cols={1} rows={1} name="" id=""></textarea>

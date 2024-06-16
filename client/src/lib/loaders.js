@@ -7,7 +7,7 @@ export const ListPageLoader = async ({ request, params }) => {
   // const url = new URL(request.url)
   // console.log(url.search)
   try {
-    const res =  axiosClient.get("/posts?" + query);
+    const res = axiosClient.get("/posts?" + query);
     // console.log(res.data)
     return {
       ok: true,
@@ -41,17 +41,19 @@ export const SinglePageLoader = async ({ request, params }) => {
 export const ProfilePageLoader = async ({ request, params }) => {
   try {
     const res = await axiosClient.get("/users/profilePosts");
-    console.log(res);
-
+    const chatRes = await axiosClient.get("/chats");
+    console.log(chatRes);
     return {
       ok: true,
-      data: res.data,
+      postsData: res.data,
+      chatsData: chatRes.data,
     };
   } catch (err) {
     console.log(err);
     return {
       ok: false,
-      data: [],
+      postsData: [],
+      chatsData: [],
     };
   }
 };
