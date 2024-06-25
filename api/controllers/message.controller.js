@@ -4,9 +4,7 @@ async function addMessage(req, res) {
   const userId = req.userId
   const chatId = req.params.chatId;
   const text =  req.body.text
-  console.log(text)
   try {
-    console.log('object')
     const chat = await prisma.chat.findUnique({
       where:{
         id:chatId,

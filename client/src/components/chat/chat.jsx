@@ -16,11 +16,9 @@ function Chat({setChat, chat}) {
   
     if (!message) return;
       try{
-        console.log(chat.id)
       const res =  await axiosClient.post(`/message/${chat.id}`,{
         text: message
        })
-       console.log(chat.reciever.id)
        setChat({...chat, messages:[...chat.messages, res.data]})
        socket.emit('sendMessage',{
         receiverId: chat.reciever.id,
@@ -35,9 +33,7 @@ function Chat({setChat, chat}) {
   useEffect(()=>{
    
       socket.on('getMessage', (data)=>{
-        console.log(data)
         if(chat.id === data.chatId){
-          console.log(data)
           setChat({...chat,  messages:[...chat.messages, data]})
         }
       })
@@ -55,7 +51,6 @@ function Chat({setChat, chat}) {
     }
 
   },[chat])
-console.log(chat)
   return (
     <div className="chat">
       <div className="head">

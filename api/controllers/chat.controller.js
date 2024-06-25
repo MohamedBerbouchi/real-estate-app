@@ -17,7 +17,6 @@ async function getChats(req, res) {
         users: true,
       },
     });
-    console.log(chats);
 
     res.status(200).json(chats);
   } catch (err) {
@@ -75,7 +74,6 @@ async function addChat(req, res) {
         ],
       },
     });
-    console.log(getChat)
     if (getChat) return res.status(200).json(getChat);
     const chat = await prisma.chat.create({
       data: {
