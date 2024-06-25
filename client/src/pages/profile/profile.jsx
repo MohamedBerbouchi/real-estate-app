@@ -48,7 +48,7 @@ function Profile() {
     try {
       const getChat = await axiosClient.get(`/chats/${chat.id}`);
       console.log(getChat);
-      setChat(getChat.data);
+      setChat({...getChat.data,reciever});
     } catch (err) {
       console.log(err);
       toast.error('cant open chat')

@@ -3,27 +3,48 @@ import "./chat.scss";
 import { useUser } from "../../context/AuthContext";
 import { format } from "timeago.js";
 import axiosClient from "../../lib/axiosClient";
+import { useSocket } from "../../context/SocketContext";
 
 function Chat({setChat, chat}) {
   const {user} = useUser()
   const lastMessageRef = useRef()
   const [message, setMessage] = useState('')
-  console.log(chat)
+  const {socket} = useSocket()
 
-  const sendMassage =async ()=>{
+  const sendMassage =async (receiver= 'jjjj')=>{
+ 
+  
     if (!message) return;
       try{
         console.log(chat.id)
       const res =  await axiosClient.post(`/message/${chat.id}`,{
         text: message
        })
-       setMessage('')
+       console.log(chat.reciever.id)
        setChat({...chat, messages:[...chat.messages, res.data]})
-
+       socket.emit('sendMessage',{
+        receiverId: chat.reciever.id,
+        data: res.data
+      })
+      setMessage('')
       }catch(err){
         console.log(err)
       }
   }
+
+  useEffect(()=>{
+   
+      socket.on('getMessage', (data)=>{
+        console.log(data)
+        if(chat.id === data.chatId){
+          console.log(data)
+          setChat({...chat,  messages:[...chat.messages, data]})
+        }
+      })
+    return () => {
+      socket.off("getMessage");
+    };
+  }, [chat, socket])
 
   const handleChange = (e)=>{
     setMessage(e.target.value)
@@ -32,7 +53,9 @@ function Chat({setChat, chat}) {
     if(lastMessageRef.current){
       lastMessageRef.current.scrollIntoView()
     }
+
   },[chat])
+console.log(chat)
   return (
     <div className="chat">
       <div className="head">
@@ -58,7 +81,7 @@ function Chat({setChat, chat}) {
         <div ref={lastMessageRef}></div>
       </div>
       <div className="bottom">
-        <textarea cols={1} rows={1} name="" id="" onChange={handleChange}></textarea>
+        <textarea cols={1} rows={1} name="" id="" onChange={handleChange} value={message}></textarea>
         <button onClick={sendMassage}>Send</button>
       </div>
     </div>
