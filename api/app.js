@@ -17,7 +17,9 @@ app.use(cors({origin:  process.env.CLIENT_URL, credentials: true}));
 
 
 app.listen(3000, ()=> console.log('server running'))
-
+app.get('/', function(req,res){
+   return  res.json('worked');
+})
 app.use('/api', AuthRouter)
 app.use('/api/test', TestRoute)
 app.use('/api/users', UserRouter)
