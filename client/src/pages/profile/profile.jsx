@@ -119,12 +119,12 @@ function Profile() {
               <button>create new post</button>
             </Link>
           </div>
-          <List items={profile_data.postsData.userPosts} />
+         <List items={profile_data?.postsData.userPosts} />
 
           <div className="title">
             <h1>Saved List</h1>
           </div>
-          <List items={profile_data.postsData.savedPosts} />
+         <List items={profile_data?.postsData.savedPosts} />
         </div>
       </div>
 
