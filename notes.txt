@@ -42,8 +42,6 @@ ipm i cors
 
 axios client
 
-kan3rf n5dm b wordpress wa5a ma3ndich chi experience kibara 
-fayt mgad 2 projects
 
 posts?type=buy&location=&minPrice=0&MaxPrice=1000000
 posts?type=rent&location=&minPrice=0&MaxPrice=1200000
@@ -71,3 +69,24 @@ seen by 👍
 notif 👍 <problem zuzstand>
 socket.io
 notification
+
+### Front-end
+  - react 
+  - sass
+  - react-router-dom (for router & fetch data)
+  - react-quill (editor)
+  - react-leaflet (for maps)
+  - cloudinary react - (https://cloudinary.com/documentation/react_image_and_video_upload)
+  - dompurify (sanitiz) in post desc
+  - timeago.js
+  - socket.io-client
+  - zustand
+### Back-end
+  - express
+  - prisma
+  - mongodb
+  - cors
+  - cookie-parser
+  - jsonwebtoken
+  - bcyript
+  - socket.io

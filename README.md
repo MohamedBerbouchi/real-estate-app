@@ -12,8 +12,6 @@ First, run the development server:
   - cloudinary react - (https://cloudinary.com/documentation/react_image_and_video_upload)
   - dompurify (sanitiz) in post desc
   - timeago.js
-  - socket.io-client
-  - zustand
 ### Back-end
   - express
   - prisma
@@ -22,7 +20,6 @@ First, run the development server:
   - cookie-parser
   - jsonwebtoken
   - bcyript
-  - socket.io
 
 
 ![6](https://github.com/MohamedBerbouchi/nextjs-portfolio/assets/82718864/7d6b005a-c234-44ad-b68f-996e4622b405)
