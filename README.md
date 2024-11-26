@@ -1,7 +1,7 @@
  
-## Getting Started
+## INTRO
 
-First, run the development server:
+A real estate app where you can find listings for buying or renting properties. It allows you to filter results based on your needs, such as city, price, or property type. When you find a listing you like, you can contact the owner directly through the app. You can also create and post your own property listings.
  
 ### Front-end
   - react 
