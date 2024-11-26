@@ -26,6 +26,8 @@ First, run the development server:
 ![5](https://github.com/MohamedBerbouchi/nextjs-portfolio/assets/82718864/6c8235b3-52f4-4170-a739-4986d8a84191)
 ![3](https://github.com/MohamedBerbouchi/nextjs-portfolio/assets/82718864/aa0d5f7e-7401-49a9-aed6-bfdea0ef5621)
 ![4](https://github.com/MohamedBerbouchi/nextjs-portfolio/assets/82718864/d75bb007-aed0-4abb-a6ee-df662e7d38e8)
+![360_F_370426690_Pejt9KxjWTHPklsKwripaxr0iA17zupF](https://github.com/user-attachments/assets/e71d2d2c-9028-4986-874c-face824a3ed6)
+
 ![2](https://github.com/MohamedBerbouchi/nextjs-portfolio/assets/82718864/962021c9-fced-449e-9a3b-8c9255e237c4)
 ![1](https://github.com/MohamedBerbouchi/nextjs-portfolio/assets/82718864/28774f4b-eb7f-438a-816f-2dde660fef59)
 
